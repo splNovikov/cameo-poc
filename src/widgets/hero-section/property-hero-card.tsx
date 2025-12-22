@@ -27,7 +27,7 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
   isHovered,
   onMouseEnter,
   onMouseLeave,
-  isVisible = true,
+  isVisible: _isVisible = true,
 }: PropertyHeroCardProps) {
   const isLeft = index === 0;
   const { currentImageIndex, setCurrentImageIndex, hasMultipleImages } = useImageRotation({

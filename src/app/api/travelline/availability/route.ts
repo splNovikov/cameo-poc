@@ -22,11 +22,9 @@ export async function GET(request: NextRequest) {
     });
 
     return NextResponse.json(result);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Travelline availability error:', error);
-    return NextResponse.json(
-      { error: error.message || 'Failed to check availability' },
-      { status: 500 }
-    );
+    const errorMessage = error instanceof Error ? error.message : 'Failed to check availability';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

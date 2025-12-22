@@ -8,6 +8,34 @@ interface UseYandexMapProps {
   mapRef: React.RefObject<HTMLDivElement>;
 }
 
+/**
+ * Yandex Maps API types
+ */
+type YandexPlacemark = {
+  // Placemark instance methods - type placeholder for Yandex Maps API
+  _brand?: 'YandexPlacemark';
+};
+
+interface YandexMap {
+  geoObjects: {
+    add: (marker: YandexPlacemark) => void;
+  };
+  destroy: () => void;
+}
+
+interface YandexMapsAPI {
+  Map: new (
+    element: HTMLElement,
+    options: { center: [number, number]; zoom: number; controls: string[] }
+  ) => YandexMap;
+  Placemark: new (
+    coordinates: [number, number],
+    properties: Record<string, string>,
+    options: Record<string, string>
+  ) => YandexPlacemark;
+  ready: (callback: () => void) => void;
+}
+
 // Return type is not needed as refs are managed internally
 
 /**
@@ -38,7 +66,7 @@ function calculateMapCenter(
 /**
  * Create marker for a property
  */
-function createPropertyMarker(property: Property, ymaps: any) {
+function createPropertyMarker(property: Property, ymaps: YandexMapsAPI): YandexPlacemark | null {
   if (!property.coordinates) {
     return null;
   }
@@ -70,11 +98,14 @@ function initializeMap(
   properties: Property[],
   center: [number, number],
   zoom: number,
-  mapInstanceRef: React.MutableRefObject<any>
+  mapInstanceRef: React.MutableRefObject<YandexMap | null>
 ): void {
   if (!mapRef.current || !window.ymaps) {
     return;
   }
+
+  // TypeScript type narrowing - we know ymaps is defined after the check above
+  const ymaps = window.ymaps;
 
   try {
     // Destroy existing map instance if it exists
@@ -84,7 +115,7 @@ function initializeMap(
     }
 
     // Create map instance with minimal controls
-    const map = new window.ymaps.Map(mapRef.current, {
+    const map = new ymaps.Map(mapRef.current, {
       center,
       zoom,
       controls: ['zoomControl'],
@@ -92,7 +123,7 @@ function initializeMap(
 
     // Add markers for each property
     properties.forEach((property) => {
-      const marker = createPropertyMarker(property, window.ymaps);
+      const marker = createPropertyMarker(property, ymaps);
       if (marker) {
         map.geoObjects.add(marker);
       }
@@ -134,35 +165,41 @@ function isScriptLoaded(): boolean {
  * Extracts business logic from component
  */
 export function useYandexMap({ properties, center, zoom = 13, mapRef }: UseYandexMapProps): void {
-  const mapInstanceRef = useRef<any>(null);
+  const mapInstanceRef = useRef<YandexMap | null>(null);
   const checkIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const initMap = useCallback(() => {
+    if (!window.ymaps) {
+      return;
+    }
     const mapCenter = calculateMapCenter(center, properties);
     initializeMap(mapRef, properties, mapCenter, zoom, mapInstanceRef);
   }, [properties, center, zoom, mapRef]);
 
   useEffect(() => {
     // Check if script is already loaded
-    if (window.ymaps) {
-      window.ymaps.ready(initMap);
+    const ymaps = window.ymaps;
+    if (ymaps) {
+      ymaps.ready(initMap);
       return;
     }
 
     // Check if script is already being loaded
     if (isScriptLoaded()) {
       // Wait for existing script to load
-      if (window.ymaps) {
-        window.ymaps.ready(initMap);
+      const existingYmaps = window.ymaps;
+      if (existingYmaps) {
+        existingYmaps.ready(initMap);
       } else {
         // Poll for ymaps to become available
         checkIntervalRef.current = setInterval(() => {
-          if (window.ymaps) {
+          const polledYmaps = window.ymaps;
+          if (polledYmaps) {
             if (checkIntervalRef.current) {
               clearInterval(checkIntervalRef.current);
               checkIntervalRef.current = null;
             }
-            window.ymaps.ready(initMap);
+            polledYmaps.ready(initMap);
           }
         }, POLL_INTERVAL_MS);
 
@@ -180,8 +217,9 @@ export function useYandexMap({ properties, center, zoom = 13, mapRef }: UseYande
     // Load Yandex Maps script
     loadYandexMapsScript(
       () => {
-        if (window.ymaps) {
-          window.ymaps.ready(initMap);
+        const loadedYmaps = window.ymaps;
+        if (loadedYmaps) {
+          loadedYmaps.ready(initMap);
         }
       },
       () => {

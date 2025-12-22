@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { contactFormSchema } from '@shared/lib/utils/validation';
-import { siteConfig } from '@shared/config';
 
 export async function POST(request: NextRequest) {
   try {
@@ -28,16 +27,17 @@ export async function POST(request: NextRequest) {
     // });
 
     return NextResponse.json({ message: 'Сообщение успешно отправлено' }, { status: 200 });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Contact form error:', error);
 
-    if (error.name === 'ZodError') {
+    if (error && typeof error === 'object' && 'name' in error && error.name === 'ZodError') {
       return NextResponse.json(
-        { error: 'Validation error', details: error.errors },
+        { error: 'Validation error', details: 'errors' in error ? error.errors : [] },
         { status: 400 }
       );
     }
 
-    return NextResponse.json({ error: error.message || 'Failed to send message' }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'Failed to send message';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

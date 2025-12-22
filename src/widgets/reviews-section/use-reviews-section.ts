@@ -14,7 +14,7 @@ interface ReviewsConfig {
  * Hook for Reviews Section business logic
  * Manages reviews configuration and fallback data
  */
-export function useReviewsSection({ orgId, limit }: UseReviewsSectionProps) {
+export function useReviewsSection({ orgId, limit: _limit }: UseReviewsSectionProps) {
   // Default organization ID from environment or config
   const defaultOrgId = orgId || process.env.NEXT_PUBLIC_YANDEX_ORG_ID;
 

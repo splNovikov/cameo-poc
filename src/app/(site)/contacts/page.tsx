@@ -16,11 +16,11 @@ const mockProperties: Property[] = [
     name: 'Отель Камея',
     type: 'hotel',
     description: '',
-    address: siteConfig.contact.address,
+    address: siteConfig.contact.addresses.hotel[0]?.address || '',
     images: [],
-    coordinates: {
-      lat: 55.7558,
-      lng: 37.6173,
+    coordinates: siteConfig.contact.addresses.hotel[0]?.coordinates || {
+      lat: 59.924632,
+      lng: 30.330483,
     },
   },
 ];
@@ -137,11 +137,11 @@ export default function ContactsPage() {
             <CardContent className="space-y-4">
               <div>
                 <h3 className="font-semibold">Адрес</h3>
-                <p className="text-text-light">{siteConfig.contact.address}</p>
+                <p className="text-text-light">{siteConfig.contact.addresses.hotel[0]?.address}</p>
               </div>
               <div>
                 <h3 className="font-semibold">Телефон</h3>
-                <p className="text-text-light">{siteConfig.contact.phone}</p>
+                <p className="text-text-light">{siteConfig.contact.phones[0]}</p>
               </div>
               <div>
                 <h3 className="font-semibold">Email</h3>

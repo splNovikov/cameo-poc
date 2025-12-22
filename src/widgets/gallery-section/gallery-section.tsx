@@ -9,7 +9,7 @@ import { useGallerySection } from './use-gallery-section';
 import { Modal } from '@shared/ui/modal';
 import styles from './gallery-section.module.css';
 
-interface GallerySectionProps {}
+type GallerySectionProps = Record<string, never>;
 
 /**
  * Gallery Section Widget

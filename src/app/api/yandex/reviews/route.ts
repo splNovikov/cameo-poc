@@ -19,8 +19,9 @@ export async function GET(request: NextRequest) {
     });
 
     return NextResponse.json(result);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Yandex reviews error:', error);
-    return NextResponse.json({ error: error.message || 'Failed to get reviews' }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'Failed to get reviews';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

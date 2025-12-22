@@ -1,7 +1,6 @@
 'use client';
 
 import { MapPin, Shield, Car, Coffee, Wifi, Sparkles, Home, Users } from 'lucide-react';
-import { type Advantage } from '@entities/advantage';
 import { useAdvantagesSection } from './use-advantages-section';
 import styles from './advantages-section.module.css';
 
@@ -28,7 +27,7 @@ const ADVANTAGE_ICONS = {
  * Displays key advantages: location, service, parking, breakfast, etc.
  * Mobile-first responsive design
  */
-export function AdvantagesSection({ className }: AdvantagesSectionProps) {
+export function AdvantagesSection({ className: _className }: AdvantagesSectionProps) {
   const { advantages } = useAdvantagesSection();
 
   return (

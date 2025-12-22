@@ -4,7 +4,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { MapPin, ArrowRight } from 'lucide-react';
 import { type Property } from '@entities/property';
-import { PROPERTY_TYPE_LABELS } from '@shared/config/property';
 import { usePropertiesCards } from './use-properties-cards';
 import { Button } from '@shared/ui/button';
 import styles from './properties-cards.module.css';
@@ -19,7 +18,7 @@ interface PropertiesCardsProps {
  * Displays hotel and apartments cards with addresses
  * Mobile-first responsive design
  */
-export function PropertiesCards({ properties, className }: PropertiesCardsProps) {
+export function PropertiesCards({ properties, className: _className }: PropertiesCardsProps) {
   const { groupedProperties } = usePropertiesCards({ properties });
 
   return (

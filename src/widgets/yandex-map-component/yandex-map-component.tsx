@@ -48,9 +48,37 @@ export function YandexMapComponent({
   );
 }
 
+/**
+ * Yandex Maps API types
+ */
+type YandexPlacemark = {
+  // Placemark instance methods - type placeholder for Yandex Maps API
+  _brand?: 'YandexPlacemark';
+};
+
+interface YandexMap {
+  geoObjects: {
+    add: (marker: YandexPlacemark) => void;
+  };
+  destroy: () => void;
+}
+
+interface YandexMapsAPI {
+  Map: new (
+    element: HTMLElement,
+    options: { center: [number, number]; zoom: number; controls: string[] }
+  ) => YandexMap;
+  Placemark: new (
+    coordinates: [number, number],
+    properties: Record<string, string>,
+    options: Record<string, string>
+  ) => YandexPlacemark;
+  ready: (callback: () => void) => void;
+}
+
 // Extend Window interface for Yandex Maps
 declare global {
   interface Window {
-    ymaps: any;
+    ymaps?: YandexMapsAPI;
   }
 }

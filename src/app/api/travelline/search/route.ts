@@ -34,8 +34,9 @@ export async function GET(request: NextRequest) {
     const result = await travellineClient.searchRooms(validatedParams);
 
     return NextResponse.json(result);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Travelline search error:', error);
-    return NextResponse.json({ error: error.message || 'Failed to search rooms' }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'Failed to search rooms';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

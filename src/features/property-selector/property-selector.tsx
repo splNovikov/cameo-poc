@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { type Property, type PropertyType } from '@entities/property';
 import { Button } from '@shared/ui/button';
 import { Card, CardContent } from '@shared/ui/card';
@@ -45,10 +46,12 @@ export function PropertySelector({ properties, selectedType, onSelect }: Propert
           <Card key={property.id} className="overflow-hidden">
             {property.images && property.images[0] && (
               <div className="relative aspect-video w-full">
-                <img
+                <Image
                   src={property.images[0]}
                   alt={property.name}
-                  className="h-full w-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </div>
             )}

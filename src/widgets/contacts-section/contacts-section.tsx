@@ -17,7 +17,7 @@ interface ContactsSectionProps {
  * Displays contact information and map
  * Mobile-first responsive design
  */
-export function ContactsSection({ className }: ContactsSectionProps = {}) {
+export function ContactsSection({ className: _className }: ContactsSectionProps = {}) {
   const { properties, contactInfo } = useContactsSection();
 
   return (

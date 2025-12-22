@@ -13,7 +13,7 @@ interface AboutSectionProps {
  * Displays information about Камея
  * Mobile-first responsive design
  */
-export function AboutSection({ className }: AboutSectionProps) {
+export function AboutSection({ className: _className }: AboutSectionProps) {
   const { content } = useAboutSection();
 
   return (

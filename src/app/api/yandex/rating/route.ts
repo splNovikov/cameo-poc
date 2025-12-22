@@ -13,8 +13,9 @@ export async function GET(request: NextRequest) {
     const result = await yandexClient.getRating(orgId);
 
     return NextResponse.json(result);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Yandex rating error:', error);
-    return NextResponse.json({ error: error.message || 'Failed to get rating' }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'Failed to get rating';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
