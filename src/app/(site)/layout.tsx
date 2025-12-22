@@ -77,7 +77,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="whitespace-nowrap text-xs transition-colors hover:text-primary md:text-sm lg:text-base"
+                  className="flex h-14 items-center whitespace-nowrap text-xs transition-colors hover:text-primary md:h-16 md:text-sm lg:h-20 lg:text-base"
                 >
                   {item.label}
                 </Link>
