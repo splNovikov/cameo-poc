@@ -23,34 +23,39 @@ export function MobileNavigation({ className }: MobileNavigationProps) {
         type="button"
         onClick={toggleMenu}
         className={cn(
-          'text-text-primary flex items-center justify-center p-2 transition-colors hover:text-primary md:hidden',
+          'text-text-primary relative flex h-10 w-10 items-center justify-center p-2 transition-colors hover:text-primary md:hidden',
           className
         )}
-        aria-label="Открыть меню"
+        aria-label={isOpen ? 'Закрыть меню' : 'Открыть меню'}
         aria-expanded={isOpen}
       >
-        {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        <Menu className={cn('h-6 w-6 transition-opacity duration-200 absolute', isOpen && 'opacity-0')} />
+        <X className={cn('h-6 w-6 transition-opacity duration-200 absolute', !isOpen && 'opacity-0')} />
       </button>
 
       {/* Mobile Menu Overlay */}
-      {isOpen && (
-        <>
-          {/* Backdrop */}
-          <div
-            className="fixed inset-0 z-40 bg-black/50 md:hidden"
-            onClick={closeMenu}
-            aria-hidden="true"
-          />
+      <>
+        {/* Backdrop */}
+        <div
+          className={cn(
+            'fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 ease-in-out md:hidden',
+            isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          )}
+          onClick={closeMenu}
+          aria-hidden="true"
+        />
 
-          {/* Menu Panel */}
-          <nav
-            className={cn(
-              'fixed right-0 top-0 z-50 h-full w-64 bg-bg shadow-xl transition-transform duration-300 ease-in-out md:hidden',
-              isOpen ? 'translate-x-0' : 'translate-x-full'
-            )}
-          >
+        {/* Menu Panel */}
+        <nav
+          className={cn(
+            'fixed right-0 top-0 z-50 h-full w-64 bg-bg shadow-xl transition-transform duration-300 ease-in-out md:hidden',
+            isOpen ? 'translate-x-0' : 'translate-x-full'
+          )}
+          aria-hidden={!isOpen}
+          aria-label="Мобильное меню"
+        >
             <div className="flex h-14 items-center justify-between border-b border-border px-4">
-              <span className="text-lg font-semibold">Меню</span>
+              <span className="text-lg font-semibold">Навигация</span>
               <button
                 type="button"
                 onClick={closeMenu}
@@ -74,8 +79,7 @@ export function MobileNavigation({ className }: MobileNavigationProps) {
               ))}
             </div>
           </nav>
-        </>
-      )}
+      </>
     </>
   );
 }
