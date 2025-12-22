@@ -91,7 +91,7 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
       >
         <div className="max-w-md md:max-w-lg">
           <div
-            className={`mb-2 text-xs font-medium uppercase tracking-wider transition-colors duration-300 md:text-sm ${
+            className={`hero-label mb-2 text-xs font-medium uppercase tracking-wider transition-colors duration-300 md:text-sm ${
               isHovered ? 'text-white' : 'text-white/80'
             }`}
           >
@@ -100,16 +100,16 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
           {propertyType.property && (
             <>
               <h2
-                className={`mb-2 text-lg font-bold leading-tight transition-all duration-500 md:mb-3 md:text-2xl lg:text-3xl xl:text-4xl ${
-                  isHovered ? 'scale-105 text-white' : 'text-white/90'
+                className={`hero-title mb-2 text-white transition-all duration-500 md:mb-3 text-2xl md:text-3xl lg:text-4xl xl:text-5xl ${
+                  isHovered ? 'scale-105' : ''
                 }`}
               >
                 {propertyType.property.name}
               </h2>
               {propertyType.property.shortDescription && (
                 <p
-                  className={`mb-3 line-clamp-3 text-xs leading-relaxed transition-opacity duration-500 md:mb-4 md:line-clamp-4 md:text-sm lg:text-base ${
-                    isHovered ? 'text-white/90' : 'text-white/70'
+                  className={`hero-description mb-3 line-clamp-3 transition-opacity duration-500 md:mb-4 md:line-clamp-4 text-white text-sm md:text-base lg:text-lg ${
+                    isHovered ? 'opacity-90' : 'opacity-70'
                   }`}
                 >
                   {propertyType.property.shortDescription}
@@ -159,13 +159,9 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
 
       {/* Hover indicator line */}
       <div
-        className={`absolute bottom-0 left-0 right-0 h-1 bg-white transition-all duration-700 ${
-          isHovered ? 'opacity-100' : 'opacity-0'
-        }`}
-        style={{
-          transform: isHovered ? 'scaleX(1)' : 'scaleX(0)',
-          transformOrigin: isLeft ? 'left' : 'right',
-        }}
+        className={`hero-indicator-line absolute bottom-0 left-0 right-0 h-1 bg-white transition-opacity duration-700 ${
+          isLeft ? '' : 'hero-indicator-line--right'
+        } ${isHovered ? 'hero-indicator-line--active opacity-100' : 'opacity-0'}`}
       />
     </Link>
   );

@@ -12,6 +12,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        hero: ['var(--font-hero-title)', 'serif'],
+        'hero-body': ['var(--font-hero-body)', 'serif'],
+      },
       colors: {
         primary: {
           DEFAULT: 'var(--color-primary)',
