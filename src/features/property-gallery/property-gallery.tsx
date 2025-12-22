@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { X } from 'lucide-react';
 import { Modal } from '@shared/ui/modal';
 
 interface PropertyGalleryProps {

@@ -59,17 +59,13 @@ export function Modal({ isOpen, onClose, title, children, className, size = 'md'
         className={cn('relative w-full rounded-lg bg-bg shadow-lg', sizeClasses[size], className)}
         onClick={(e) => e.stopPropagation()}
       >
-        {(title || onClose) && (
-          <div className="flex items-center justify-between border-b border-border p-4">
-            {title && <h2 className="text-xl font-semibold">{title}</h2>}
-            {onClose && (
-              <Button variant="ghost" size="sm" onClick={onClose} className="h-8 w-8 p-0">
-                <X className="h-4 w-4" />
-                <span className="sr-only">Закрыть</span>
-              </Button>
-            )}
-          </div>
-        )}
+        <div className="flex items-center justify-between border-b border-border p-4">
+          {title && <h2 className="text-xl font-semibold">{title}</h2>}
+          <Button variant="ghost" size="sm" onClick={onClose} className="h-8 w-8 p-0">
+            <X className="h-4 w-4" />
+            <span className="sr-only">Закрыть</span>
+          </Button>
+        </div>
         <div className="p-4">{children}</div>
       </div>
     </div>

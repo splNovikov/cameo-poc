@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { pathKeys } from '@shared/router';
-import { siteConfig } from '@shared/config';
+import { siteConfig, NAVIGATION_ITEMS } from '@shared/config';
 import { Logo } from '@shared/ui/logo';
+import { MobileNavigation } from '@widgets/mobile-navigation';
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -10,32 +11,20 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <nav className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8 xl:px-12">
           <div className="flex h-14 items-center justify-between md:h-16 lg:h-20">
             <Logo />
-            <div className="flex gap-3 md:gap-4 lg:gap-6 xl:gap-8">
-              <Link
-                href={pathKeys.properties}
-                className="text-sm transition-colors hover:text-primary md:text-base"
-              >
-                Объекты
-              </Link>
-              <Link
-                href={pathKeys.offers}
-                className="text-sm transition-colors hover:text-primary md:text-base"
-              >
-                Акции
-              </Link>
-              <Link
-                href={pathKeys.about}
-                className="text-sm transition-colors hover:text-primary md:text-base"
-              >
-                О нас
-              </Link>
-              <Link
-                href={pathKeys.contacts}
-                className="text-sm transition-colors hover:text-primary md:text-base"
-              >
-                Контакты
-              </Link>
+            {/* Desktop Navigation */}
+            <div className="hidden gap-3 md:flex md:gap-4 lg:gap-6 xl:gap-8">
+              {NAVIGATION_ITEMS.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-sm transition-colors hover:text-primary md:text-base"
+                >
+                  {item.label}
+                </Link>
+              ))}
             </div>
+            {/* Mobile Navigation */}
+            <MobileNavigation />
           </div>
         </nav>
       </header>

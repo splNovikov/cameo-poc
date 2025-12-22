@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { memo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { type PropertyTypeData, type PropertyType } from './use-hero-section';
+import { type PropertyTypeData } from './use-hero-section';
+import { useImageRotation } from './use-image-rotation';
 
 interface PropertyHeroCardProps {
   propertyType: PropertyTypeData;
@@ -17,7 +18,7 @@ interface PropertyHeroCardProps {
  * Individual property type card component for split-screen hero
  * Supports image rotation when multiple images are available
  */
-export function PropertyHeroCard({
+export const PropertyHeroCard = memo(function PropertyHeroCard({
   propertyType,
   index,
   isHovered,
@@ -25,29 +26,16 @@ export function PropertyHeroCard({
   onMouseLeave,
 }: PropertyHeroCardProps) {
   const isLeft = index === 0;
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const hasMultipleImages = propertyType.images.length > 1;
-
-  // Rotate images automatically when hovered and multiple images available
-  useEffect(() => {
-    if (!isHovered || !hasMultipleImages) {
-      setCurrentImageIndex(0);
-      return;
-    }
-
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % propertyType.images.length);
-    }, 3000); // Change image every 3 seconds
-
-    return () => clearInterval(interval);
-  }, [isHovered, hasMultipleImages, propertyType.images.length]);
-
-  const currentImage = propertyType.images[currentImageIndex] || propertyType.image;
+  const { currentImageIndex, setCurrentImageIndex, hasMultipleImages } = useImageRotation({
+    images: propertyType.images,
+    isActive: isHovered,
+    interval: 3000,
+  });
 
   return (
     <Link
       href={propertyType.property ? `/properties/${propertyType.property.slug}` : '#'}
-      className="group relative z-10 flex-1 cursor-pointer overflow-hidden transition-all duration-700 ease-out"
+      className="group relative z-10 flex h-[400px] flex-1 cursor-pointer overflow-hidden transition-all duration-700 ease-out md:h-auto"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -69,18 +57,18 @@ export function PropertyHeroCard({
                 imgIndex === currentImageIndex ? 'opacity-100' : 'opacity-0'
               }`}
               priority={index === 0 && imgIndex === 0}
-              sizes="50vw"
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
           ))
         ) : (
           // Single image
           <Image
-            src={currentImage}
+            src={propertyType.image}
             alt={propertyType.label}
             fill
             className="object-cover"
             priority={index === 0}
-            sizes="50vw"
+            sizes="(max-width: 768px) 100vw, 50vw"
           />
         )}
         {/* Gradient Overlay */}
@@ -95,13 +83,15 @@ export function PropertyHeroCard({
 
       {/* Content Overlay */}
       <div
-        className={`relative z-10 flex h-full flex-col justify-center px-8 transition-all duration-700 ${
-          isLeft ? 'items-start text-left' : 'items-end text-right'
+        className={`relative z-30 flex h-full flex-col px-4 py-4 transition-all duration-700 md:px-8 md:py-0 ${
+          isLeft
+            ? 'items-start justify-start text-left md:justify-center'
+            : 'items-end justify-start text-right md:justify-center'
         } ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-90'}`}
       >
-        <div className="max-w-md">
+        <div className="max-w-md md:max-w-lg">
           <div
-            className={`mb-2 text-sm font-medium uppercase tracking-wider transition-colors duration-300 ${
+            className={`mb-2 text-xs font-medium uppercase tracking-wider transition-colors duration-300 md:text-sm ${
               isHovered ? 'text-white' : 'text-white/80'
             }`}
           >
@@ -110,7 +100,7 @@ export function PropertyHeroCard({
           {propertyType.property && (
             <>
               <h2
-                className={`mb-3 text-3xl font-bold transition-all duration-500 md:text-4xl lg:text-5xl ${
+                className={`mb-2 text-lg font-bold leading-tight transition-all duration-500 md:mb-3 md:text-2xl lg:text-3xl xl:text-4xl ${
                   isHovered ? 'scale-105 text-white' : 'text-white/90'
                 }`}
               >
@@ -118,7 +108,7 @@ export function PropertyHeroCard({
               </h2>
               {propertyType.property.shortDescription && (
                 <p
-                  className={`mb-4 text-lg transition-opacity duration-500 ${
+                  className={`mb-3 line-clamp-2 text-xs leading-relaxed transition-opacity duration-500 md:mb-4 md:line-clamp-none md:text-sm lg:text-base ${
                     isHovered ? 'text-white/90' : 'text-white/70'
                   }`}
                 >
@@ -126,7 +116,7 @@ export function PropertyHeroCard({
                 </p>
               )}
               <div
-                className={`inline-flex items-center gap-2 rounded-full border-2 px-6 py-2 text-sm font-medium transition-all duration-300 group-hover:scale-105 group-hover:bg-white/20 group-hover:shadow-lg ${
+                className={`inline-flex items-center gap-2 rounded-full border-2 px-3 py-1 text-xs font-medium transition-all duration-300 group-hover:scale-105 group-hover:bg-white/20 group-hover:shadow-lg md:px-6 md:py-2 md:text-sm ${
                   isHovered
                     ? 'border-white bg-white/10 text-white shadow-lg'
                     : 'border-white/50 bg-white/5 text-white/80'
@@ -179,4 +169,4 @@ export function PropertyHeroCard({
       />
     </Link>
   );
-}
+});
