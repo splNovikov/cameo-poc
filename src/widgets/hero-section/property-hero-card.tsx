@@ -120,10 +120,10 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
 
       {/* Content Overlay */}
       <div
-        className={`relative z-30 flex h-full flex-col px-6 py-8 transition-all duration-700 md:px-12 md:py-12 lg:px-16 lg:py-16 ${
+        className={`relative z-30 flex h-full flex-col px-4 py-4 pb-8 transition-all duration-700 sm:px-6 sm:py-8 sm:pb-8 md:px-12 md:py-12 md:pb-32 lg:px-16 lg:py-16 lg:pb-32 ${
           isLeft
-            ? 'items-start justify-center text-left md:justify-center md:pb-32'
-            : 'items-end justify-center text-right md:justify-center md:pb-32'
+            ? 'items-start justify-center text-left md:justify-center'
+            : 'items-end justify-center text-right md:justify-center'
         } ${isHovered ? 'translate-y-0' : 'translate-y-4'} opacity-90`}
       >
         <div
@@ -137,7 +137,7 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
               styles.heroLabel,
               styles.heroLabelAccent,
               styles.heroContentEnter,
-              'mb-4 text-xs font-medium uppercase tracking-widest transition-colors duration-300 md:mb-5 md:text-sm',
+              'mb-2 text-[10px] font-medium uppercase tracking-widest transition-colors duration-300 sm:mb-4 sm:text-xs md:mb-5 md:text-sm',
               !isLeft && styles.heroLabelAccentRight,
               isHovered ? 'text-white' : 'text-white/80'
             )}
@@ -152,7 +152,7 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
                   styles.heroTitleElegant,
                   styles.heroContentEnterDelay1,
                   styles.heroTextShadowDeep,
-                  'mb-4 text-xl text-white transition-all duration-500 md:mb-5 md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-3xl',
+                  'mb-2 text-lg text-white transition-all duration-500 sm:mb-4 sm:text-xl md:mb-5 md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-3xl',
                   isHovered && 'scale-105'
                 )}
               >
@@ -164,7 +164,7 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
                     styles.heroDescription,
                     styles.heroDescriptionRefined,
                     styles.heroContentEnterDelay1,
-                    'mb-6 line-clamp-3 text-sm text-white transition-opacity duration-500 md:mb-8 md:line-clamp-4 md:text-sm lg:text-base xl:text-base',
+                    'mb-3 line-clamp-2 text-xs text-white transition-opacity duration-500 sm:mb-6 sm:line-clamp-3 sm:text-sm md:mb-8 md:line-clamp-4 md:text-sm lg:text-base xl:text-base',
                     isHovered ? 'text-white opacity-95' : 'text-white/90 opacity-80'
                   )}
                 >
@@ -175,7 +175,7 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
                 className={cn(
                   styles.heroButton,
                   styles.heroContentEnterDelay2,
-                  'inline-flex items-center gap-3 rounded-full border-2 px-5 py-2.5 text-xs font-semibold tracking-wide transition-all duration-300 group-hover:scale-105 group-hover:bg-white/20 group-hover:shadow-xl md:px-8 md:py-3 md:text-sm',
+                  'inline-flex items-center gap-2 rounded-full border-2 px-3 py-1.5 text-[11px] font-semibold tracking-wide transition-all duration-300 group-hover:scale-105 group-hover:bg-white/20 group-hover:shadow-xl sm:gap-3 sm:px-5 sm:py-2.5 sm:text-xs md:px-8 md:py-3 md:text-sm',
                   isHovered
                     ? 'border-white bg-white/15 text-white shadow-2xl backdrop-blur-sm'
                     : 'border-white bg-white/10 text-white backdrop-blur-sm',
@@ -183,7 +183,7 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
                 )}
               >
                 Подробнее
-                <span className="text-lg transition-transform duration-300 group-hover:translate-x-1 md:text-xl">
+                <span className="text-sm transition-transform duration-300 group-hover:translate-x-1 sm:text-lg md:text-xl">
                   →
                 </span>
               </div>

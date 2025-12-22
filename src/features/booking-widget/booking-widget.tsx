@@ -2,7 +2,7 @@
 
 import { Calendar, Users } from 'lucide-react';
 import { Button } from '@shared/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@shared/ui/card';
+import { Card, CardContent } from '@shared/ui/card';
 import { useBookingForm, getDefaultBookingDates } from './use-booking-form';
 import { BookingFormField } from './booking-form-field';
 
@@ -17,9 +17,6 @@ export function BookingWidget() {
 
   return (
     <Card className="w-full">
-      <CardHeader>
-        <CardTitle>Забронировать номер</CardTitle>
-      </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

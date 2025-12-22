@@ -103,6 +103,36 @@
   }
 }
 
+/* Very small screens (<424px) - additional adjustments */
+@media (max-width: 423px) {
+  .heroTitle {
+    font-size: 1.25rem; /* 20px - further reduced for very small screens */
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+  }
+
+  .heroSubtitle {
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.4;
+  }
+
+  .heroDescription {
+    font-size: 0.75rem; /* 12px */
+    line-height: 1.5;
+    margin-top: var(--space-3);
+  }
+
+  .heroAccent {
+    font-size: 0.875rem; /* 14px */
+    margin-bottom: var(--space-2);
+  }
+
+  /* Ensure button has enough bottom space */
+  .heroButton {
+    margin-top: var(--space-2);
+  }
+}
+
 /* Hero Label */
 .heroLabel {
   font-family: var(--font-hero-body);
