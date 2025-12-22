@@ -26,9 +26,13 @@
   --font-size-xs: 12px;
   --font-size-sm: 14px;
   --font-size-md: 16px;
-  --font-size-lg: 24px;
-  --font-size-xl: 48px;
-  --font-size-xxl: 64px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+  --font-size-3xl: 40px;
+  --font-size-4xl: 48px;
+  --font-size-5xl: 56px;
+  --font-size-6xl: 64px;
 
   /* Hero Typography Sizes */
   --font-size-hero-title: 72px;

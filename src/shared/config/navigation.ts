@@ -15,7 +15,6 @@ export interface NavigationItem {
  * Shortened labels for better fit on screens
  */
 export const NAVIGATION_ITEMS: NavigationItem[] = [
-  { href: '#', label: 'Звонок' },
   { href: '/hotel', label: 'Отель' },
   { href: '/services', label: 'Услуги' },
   { href: '/rooms', label: 'Номера' },

@@ -32,7 +32,7 @@ interface LogoProps {
 
 /**
  * Logo component for the site
- * Displays the Cameo Hotel logo with optional text fallback
+ * Displays the Камея logo with optional text fallback
  */
 export function Logo({
   linkToHome = true,

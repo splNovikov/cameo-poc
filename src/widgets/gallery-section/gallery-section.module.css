@@ -1,0 +1,348 @@
+.section {
+  padding: var(--space-6) var(--space-4);
+  background-color: var(--color-bg-body);
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: var(--space-8) var(--space-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding: var(--space-8) var(--space-8);
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--font-size-4xl);
+  }
+}
+
+.subtitle {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-bottom: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .subtitle {
+    margin-bottom: var(--space-8);
+  }
+}
+
+.scrollWrapper {
+  position: relative;
+  margin: 0 calc(-1 * var(--space-4));
+}
+
+@media (min-width: 768px) {
+  .scrollWrapper {
+    margin: 0 calc(-1 * var(--space-6));
+  }
+}
+
+@media (min-width: 1024px) {
+  .scrollWrapper {
+    margin: 0 calc(-1 * var(--space-8));
+  }
+}
+
+.scrollContainer {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+  padding-bottom: var(--space-2);
+  padding-left: var(--space-4);
+  padding-right: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .scrollContainer {
+    padding-left: var(--space-6);
+    padding-right: var(--space-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .scrollContainer {
+    padding-left: var(--space-8);
+    padding-right: var(--space-8);
+  }
+}
+
+/* Градиенты по краям для индикации скролла */
+.scrollWrapper::before,
+.scrollWrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+}
+
+.scrollWrapper::before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    var(--color-bg-body) 0%,
+    rgba(255, 255, 255, 0.6) 40%,
+    transparent 100%
+  );
+  opacity: 0;
+}
+
+.scrollWrapper::after {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    var(--color-bg-body) 0%,
+    rgba(255, 255, 255, 0.6) 40%,
+    transparent 100%
+  );
+  opacity: 1;
+}
+
+/* Показываем левый градиент при скролле */
+.scrollWrapper:not(.scrolledStart)::before {
+  opacity: 1;
+}
+
+.scrollWrapper.scrolledEnd::after {
+  opacity: 0;
+}
+
+.scrollHint {
+  position: absolute;
+  right: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@media (min-width: 768px) {
+  .scrollHint {
+    right: var(--space-6);
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .scrollHint {
+    right: var(--space-8);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+  }
+}
+
+.scrollHintIcon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary);
+}
+
+@media (min-width: 768px) {
+  .scrollHintIcon {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.scrollContainer::-webkit-scrollbar {
+  height: 10px;
+}
+
+.scrollContainer::-webkit-scrollbar-track {
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-full);
+  margin: 0 var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .scrollContainer::-webkit-scrollbar-track {
+    margin: 0 var(--space-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .scrollContainer::-webkit-scrollbar-track {
+    margin: 0 var(--space-8);
+  }
+}
+
+.scrollContainer::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+  transition: background var(--transition-base);
+}
+
+.scrollContainer::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-hover);
+}
+
+.gallery {
+  display: flex;
+  gap: var(--space-4);
+  width: max-content;
+  padding-right: var(--space-4);
+}
+
+/* Показываем часть следующего изображения справа */
+.gallery::after {
+  content: '';
+  flex-shrink: 0;
+  width: 100px;
+  height: 100%;
+  pointer-events: none;
+}
+
+.imageWrapper {
+  position: relative;
+  flex-shrink: 0;
+  width: 280px;
+  height: 210px;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  background-color: var(--color-bg-surface);
+  box-shadow: var(--shadow-md);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+@media (min-width: 640px) {
+  .imageWrapper {
+    width: 320px;
+    height: 240px;
+  }
+}
+
+@media (min-width: 768px) {
+  .imageWrapper {
+    width: 380px;
+    height: 285px;
+  }
+
+  .imageWrapper:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .imageWrapper {
+    width: 420px;
+    height: 315px;
+  }
+}
+
+.image {
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+@media (min-width: 768px) {
+  .imageWrapper:hover .image {
+    transform: scale(1.1);
+  }
+}
+
+.imageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.3) 50%,
+    transparent 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: var(--space-4);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.imageWrapper:hover .imageOverlay,
+.imageWrapper:active .imageOverlay {
+  opacity: 1;
+}
+
+.overlayText {
+  color: white;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modal {
+  background-color: transparent;
+}
+
+.modalContent {
+  position: relative;
+  width: 100%;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalImageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 90vh;
+}
+
+.modalImage {
+  object-fit: contain;
+}
