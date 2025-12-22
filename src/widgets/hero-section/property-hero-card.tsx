@@ -147,7 +147,7 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
                   styles.heroTitleElegant,
                   styles.heroContentEnterDelay1,
                   styles.heroTextShadowDeep,
-                  'mb-4 text-white transition-all duration-500 md:mb-5 text-2xl md:text-2xl lg:text-3xl xl:text-3xl 2xl:text-4xl',
+                  'mb-4 text-white transition-all duration-500 md:mb-5 text-xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-3xl',
                   isHovered && 'scale-105'
                 )}
               >
