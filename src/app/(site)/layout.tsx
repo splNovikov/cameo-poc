@@ -4,6 +4,7 @@ import { pathKeys } from '@shared/router';
 import { siteConfig, NAVIGATION_ITEMS } from '@shared/config';
 import { Logo } from '@shared/ui/logo';
 import { MobileNavigation } from '@widgets/mobile-navigation';
+import { Button } from '@shared/ui/button';
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -21,7 +22,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-text-light transition-colors hover:text-primary"
                 >
-                  <MapPin className="h-3.5 w-3.5 lg:h-4 lg:w-4 shrink-0" />
+                  <MapPin className="h-3.5 w-3.5 shrink-0 lg:h-4 lg:w-4" />
                   <span className="text-xs lg:text-sm">
                     {siteConfig.contact.addresses.hotel[0].address}
                   </span>
@@ -33,15 +34,23 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                       href={`tel:${phone.replace(/\s/g, '').replace(/[()]/g, '')}`}
                       className="flex items-center gap-1.5 text-text-light transition-colors hover:text-primary"
                     >
-                      <Phone className="h-3.5 w-3.5 lg:h-4 lg:w-4 shrink-0" />
+                      <Phone className="h-3.5 w-3.5 shrink-0 lg:h-4 lg:w-4" />
                       <span className="text-xs lg:text-sm">{phone}</span>
                     </a>
                   ))}
                 </div>
               </div>
 
-              {/* Social Networks */}
+              {/* CTA Button & Social Networks */}
               <div className="flex items-center gap-3 lg:gap-4">
+                <Link href="#booking">
+                  <Button
+                    size="sm"
+                    className="h-6 px-2 text-[10px] leading-tight md:h-7 md:px-3 md:text-xs"
+                  >
+                    Забронировать
+                  </Button>
+                </Link>
                 <a
                   href={siteConfig.social.instagram}
                   target="_blank"
@@ -107,7 +116,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
               </h3>
               <div className="space-y-2 md:space-y-3">
                 <div className="text-xs text-text-light md:text-sm lg:text-base">
-                  <p className="font-medium mb-1">Отель:</p>
+                  <p className="mb-1 font-medium">Отель:</p>
                   <a
                     href={siteConfig.contact.addresses.hotel[0].mapUrl}
                     target="_blank"
@@ -118,7 +127,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                   </a>
                 </div>
                 <div className="text-xs text-text-light md:text-sm lg:text-base">
-                  <p className="font-medium mb-1">Апартаменты:</p>
+                  <p className="mb-1 font-medium">Апартаменты:</p>
                   {siteConfig.contact.addresses.apartments.map((location, index) => (
                     <a
                       key={index}
@@ -132,7 +141,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                   ))}
                 </div>
                 <div className="text-xs text-text-light md:text-sm lg:text-base">
-                  <p className="font-medium mb-1">Телефоны:</p>
+                  <p className="mb-1 font-medium">Телефоны:</p>
                   {siteConfig.contact.phones.map((phone, index) => (
                     <a
                       key={index}

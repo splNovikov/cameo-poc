@@ -22,22 +22,30 @@ export function DesktopBookingBar() {
   const { checkIn: minDate } = getDefaultBookingDates();
 
   return (
-    <div className={cn(styles.heroBookingEnter, 'absolute bottom-0 left-0 right-0 z-50 hidden border-t border-border bg-white shadow-2xl md:block')}>
+    <div
+      className={cn(
+        styles.heroBookingEnter,
+        'absolute bottom-0 left-0 right-0 z-50 hidden border-t border-border bg-white shadow-2xl md:block'
+      )}
+    >
       <div className="mx-auto max-w-7xl px-4 py-4 lg:px-8">
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-wrap items-end gap-3 lg:flex-nowrap lg:gap-4">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-wrap items-end gap-3 lg:flex-nowrap lg:gap-4"
+        >
           <BookingFormField
             id="desktop-checkIn"
             label="Заезд"
-            icon={<Calendar className="h-3 w-3 text-text-primary" />}
+            icon={<Calendar className="text-text-primary h-3 w-3" />}
             error={errors.checkIn}
-            className="flex-1 min-w-[140px]"
+            className="min-w-[140px] flex-1"
           >
             <input
               id="desktop-checkIn"
               type="date"
               {...register('checkIn')}
               className={cn(
-                'w-full rounded-md border border-border bg-bg px-3 py-2 text-sm text-text-primary',
+                'text-text-primary w-full rounded-md border border-border bg-bg px-3 py-2 text-sm',
                 errors.checkIn && 'border-error'
               )}
               min={minDate}
@@ -47,16 +55,16 @@ export function DesktopBookingBar() {
           <BookingFormField
             id="desktop-checkOut"
             label="Выезд"
-            icon={<Calendar className="h-3 w-3 text-text-primary" />}
+            icon={<Calendar className="text-text-primary h-3 w-3" />}
             error={errors.checkOut}
-            className="flex-1 min-w-[140px]"
+            className="min-w-[140px] flex-1"
           >
             <input
               id="desktop-checkOut"
               type="date"
               {...register('checkOut')}
               className={cn(
-                'w-full rounded-md border border-border bg-bg px-3 py-2 text-sm text-text-primary',
+                'text-text-primary w-full rounded-md border border-border bg-bg px-3 py-2 text-sm',
                 errors.checkOut && 'border-error'
               )}
               min={minDate}
@@ -66,7 +74,7 @@ export function DesktopBookingBar() {
           <BookingFormField
             id="desktop-adults"
             label="Взрослые"
-            icon={<Users className="h-3 w-3 text-text-primary" />}
+            icon={<Users className="text-text-primary h-3 w-3" />}
             error={errors.adults}
             className="w-24"
           >
@@ -77,7 +85,7 @@ export function DesktopBookingBar() {
               max="10"
               {...register('adults', { valueAsNumber: true })}
               className={cn(
-                'w-full rounded-md border border-border bg-bg px-3 py-2 text-sm text-text-primary',
+                'text-text-primary w-full rounded-md border border-border bg-bg px-3 py-2 text-sm',
                 errors.adults && 'border-error'
               )}
             />
@@ -96,18 +104,13 @@ export function DesktopBookingBar() {
               max="10"
               {...register('children', { valueAsNumber: true })}
               className={cn(
-                'w-full rounded-md border border-border bg-bg px-3 py-2 text-sm text-text-primary',
+                'text-text-primary w-full rounded-md border border-border bg-bg px-3 py-2 text-sm',
                 errors.children && 'border-error'
               )}
             />
           </BookingFormField>
 
-          <BookingFormField
-            id="desktop-rooms"
-            label="Номера"
-            error={errors.rooms}
-            className="w-20"
-          >
+          <BookingFormField id="desktop-rooms" label="Номера" error={errors.rooms} className="w-20">
             <input
               id="desktop-rooms"
               type="number"
@@ -115,7 +118,7 @@ export function DesktopBookingBar() {
               max="10"
               {...register('rooms', { valueAsNumber: true })}
               className={cn(
-                'w-full rounded-md border border-border bg-bg px-3 py-2 text-sm text-text-primary',
+                'text-text-primary w-full rounded-md border border-border bg-bg px-3 py-2 text-sm',
                 errors.rooms && 'border-error'
               )}
             />
@@ -123,7 +126,11 @@ export function DesktopBookingBar() {
 
           {/* Submit Button */}
           <div className="w-full lg:w-auto">
-            <Button type="submit" disabled={isLoading} className="w-full lg:w-auto lg:min-w-[160px]">
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="w-full lg:w-auto lg:min-w-[160px]"
+            >
               {isLoading ? 'Поиск...' : 'Найти номера'}
             </Button>
           </div>
@@ -132,4 +139,3 @@ export function DesktopBookingBar() {
     </div>
   );
 }
-

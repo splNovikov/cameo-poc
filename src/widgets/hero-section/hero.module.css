@@ -178,7 +178,8 @@
 }
 
 @keyframes heroGlow {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 20px rgba(36, 91, 33, 0.3);
   }
   50% {
@@ -239,7 +240,8 @@
 
 /* Hero Button Pulse */
 @keyframes heroButtonPulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
@@ -317,7 +319,7 @@
 
 /* Hero Content Glow */
 .heroContentGlow {
-  text-shadow: 
+  text-shadow:
     0 0 20px rgba(255, 255, 255, 0.3),
     0 2px 4px rgba(0, 0, 0, 0.3),
     0 4px 8px rgba(0, 0, 0, 0.2);
@@ -325,7 +327,7 @@
 }
 
 .heroContentGlow:hover {
-  text-shadow: 
+  text-shadow:
     0 0 30px rgba(255, 255, 255, 0.5),
     0 2px 6px rgba(0, 0, 0, 0.4),
     0 4px 12px rgba(0, 0, 0, 0.3);
@@ -333,7 +335,7 @@
 
 /* Hero Text Effects */
 .heroTextShadowDeep {
-  text-shadow: 
+  text-shadow:
     0 2px 4px rgba(0, 0, 0, 0.4),
     0 4px 8px rgba(0, 0, 0, 0.3),
     0 8px 16px rgba(0, 0, 0, 0.2),
@@ -343,7 +345,7 @@
 .heroTextOutline {
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
   text-stroke: 1px rgba(255, 255, 255, 0.3);
-  text-shadow: 
+  text-shadow:
     0 0 10px rgba(255, 255, 255, 0.2),
     0 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -467,4 +469,3 @@
     background-position: 200% 0;
   }
 }
-

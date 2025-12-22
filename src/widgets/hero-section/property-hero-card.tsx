@@ -114,7 +114,7 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
         />
         {/* Shimmer Effect */}
         {isHovered && (
-          <div className={cn(styles.heroShimmer, 'absolute inset-0 pointer-events-none z-20')} />
+          <div className={cn(styles.heroShimmer, 'pointer-events-none absolute inset-0 z-20')} />
         )}
       </div>
 
@@ -126,13 +126,18 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
             : 'items-end justify-center text-right md:justify-center md:pb-32'
         } ${isHovered ? 'translate-y-0' : 'translate-y-4'} opacity-90`}
       >
-        <div className={cn('max-w-md md:max-w-lg lg:max-w-xl', isLeft ? 'md:ml-8 lg:ml-12' : 'md:mr-8 lg:mr-12')}>
+        <div
+          className={cn(
+            'max-w-md md:max-w-lg lg:max-w-xl',
+            isLeft ? 'md:ml-8 lg:ml-12' : 'md:mr-8 lg:mr-12'
+          )}
+        >
           <div
             className={cn(
               styles.heroLabel,
               styles.heroLabelAccent,
               styles.heroContentEnter,
-              'mb-4 text-xs font-medium uppercase tracking-widest transition-colors duration-300 md:text-sm md:mb-5',
+              'mb-4 text-xs font-medium uppercase tracking-widest transition-colors duration-300 md:mb-5 md:text-sm',
               !isLeft && styles.heroLabelAccentRight,
               isHovered ? 'text-white' : 'text-white/80'
             )}
@@ -147,7 +152,7 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
                   styles.heroTitleElegant,
                   styles.heroContentEnterDelay1,
                   styles.heroTextShadowDeep,
-                  'mb-4 text-white transition-all duration-500 md:mb-5 text-xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-3xl',
+                  'mb-4 text-xl text-white transition-all duration-500 md:mb-5 md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-3xl',
                   isHovered && 'scale-105'
                 )}
               >
@@ -159,8 +164,8 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
                     styles.heroDescription,
                     styles.heroDescriptionRefined,
                     styles.heroContentEnterDelay1,
-                    'mb-6 line-clamp-3 transition-opacity duration-500 md:mb-8 md:line-clamp-4 text-white text-sm md:text-sm lg:text-base xl:text-base',
-                    isHovered ? 'opacity-95 text-white' : 'opacity-80 text-white/90'
+                    'mb-6 line-clamp-3 text-sm text-white transition-opacity duration-500 md:mb-8 md:line-clamp-4 md:text-sm lg:text-base xl:text-base',
+                    isHovered ? 'text-white opacity-95' : 'text-white/90 opacity-80'
                   )}
                 >
                   {propertyType.property.shortDescription}
@@ -178,7 +183,7 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
                 )}
               >
                 Подробнее
-                <span className="transition-transform duration-300 group-hover:translate-x-1 text-lg md:text-xl">
+                <span className="text-lg transition-transform duration-300 group-hover:translate-x-1 md:text-xl">
                   →
                 </span>
               </div>

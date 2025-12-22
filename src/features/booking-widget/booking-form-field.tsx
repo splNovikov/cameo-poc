@@ -26,7 +26,7 @@ export function BookingFormField({
       <label
         htmlFor={id}
         className={cn(
-          'mb-1 flex items-center gap-1 text-xs font-medium text-text-primary',
+          'text-text-primary mb-1 flex items-center gap-1 text-xs font-medium',
           icon && 'gap-1'
         )}
       >
@@ -38,4 +38,3 @@ export function BookingFormField({
     </div>
   );
 }
-

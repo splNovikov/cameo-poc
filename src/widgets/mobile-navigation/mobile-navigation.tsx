@@ -29,8 +29,12 @@ export function MobileNavigation({ className }: MobileNavigationProps) {
         aria-label={isOpen ? 'Закрыть меню' : 'Открыть меню'}
         aria-expanded={isOpen}
       >
-        <Menu className={cn('h-6 w-6 transition-opacity duration-200 absolute', isOpen && 'opacity-0')} />
-        <X className={cn('h-6 w-6 transition-opacity duration-200 absolute', !isOpen && 'opacity-0')} />
+        <Menu
+          className={cn('absolute h-6 w-6 transition-opacity duration-200', isOpen && 'opacity-0')}
+        />
+        <X
+          className={cn('absolute h-6 w-6 transition-opacity duration-200', !isOpen && 'opacity-0')}
+        />
       </button>
 
       {/* Mobile Menu Overlay */}
@@ -39,7 +43,7 @@ export function MobileNavigation({ className }: MobileNavigationProps) {
         <div
           className={cn(
             'fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 ease-in-out md:hidden',
-            isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+            isOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
           )}
           onClick={closeMenu}
           aria-hidden="true"
@@ -54,31 +58,31 @@ export function MobileNavigation({ className }: MobileNavigationProps) {
           aria-hidden={!isOpen}
           aria-label="Мобильное меню"
         >
-            <div className="flex h-14 items-center justify-between border-b border-border px-4">
-              <span className="text-lg font-semibold">Навигация</span>
-              <button
-                type="button"
-                onClick={closeMenu}
-                className="text-text-primary p-2 transition-colors hover:text-primary"
-                aria-label="Закрыть меню"
-              >
-                <X className="h-6 w-6" />
-              </button>
-            </div>
+          <div className="flex h-14 items-center justify-between border-b border-border px-4">
+            <span className="text-lg font-semibold">Навигация</span>
+            <button
+              type="button"
+              onClick={closeMenu}
+              className="text-text-primary p-2 transition-colors hover:text-primary"
+              aria-label="Закрыть меню"
+            >
+              <X className="h-6 w-6" />
+            </button>
+          </div>
 
-            <div className="flex flex-col p-4">
-              {NAVIGATION_ITEMS.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={closeMenu}
-                  className="text-text-primary rounded-md px-4 py-3 text-base font-medium transition-colors hover:bg-bg-secondary hover:text-primary"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </nav>
+          <div className="flex flex-col p-4">
+            {NAVIGATION_ITEMS.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={closeMenu}
+                className="text-text-primary rounded-md px-4 py-3 text-base font-medium transition-colors hover:bg-bg-secondary hover:text-primary"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </nav>
       </>
     </>
   );
