@@ -2,32 +2,32 @@
 /* These styles are applied globally to Yandex Maps internal classes */
 
 /* Customize Yandex Maps controls to match site theme */
-.yandex-map-container [class*="zoom"] {
+.yandex-map-container [class*='zoom'] {
   border-radius: var(--radius-md) !important;
   box-shadow: var(--shadow-md) !important;
   overflow: hidden;
 }
 
-.yandex-map-container [class*="zoom__button"] {
+.yandex-map-container [class*='zoom__button'] {
   background-color: var(--color-bg-white) !important;
   border-color: var(--color-border) !important;
 }
 
-.yandex-map-container [class*="zoom__button"]:hover {
+.yandex-map-container [class*='zoom__button']:hover {
   background-color: var(--color-bg-surface) !important;
 }
 
-.yandex-map-container [class*="zoom__button"]:active {
+.yandex-map-container [class*='zoom__button']:active {
   background-color: var(--color-bg-surface-active) !important;
 }
 
 /* Hide unnecessary Yandex Maps elements */
-.yandex-map-container [class*="copyrights-pane"] {
+.yandex-map-container [class*='copyrights-pane'] {
   display: none !important;
 }
 
 /* Customize balloon styling */
-.yandex-map-container [class*="balloon"] {
+.yandex-map-container [class*='balloon'] {
   border-radius: var(--radius-md) !important;
 }
 
@@ -51,4 +51,3 @@
   margin: var(--space-1) 0;
   color: var(--color-text-tertiary);
 }
-

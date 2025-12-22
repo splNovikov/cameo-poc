@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { QueryProvider } from './providers/query-provider';
+import { SeasonalEffects } from '@widgets/seasonal-effects';
 import { siteConfig } from '@shared/config';
 import './globals.css';
 
@@ -47,7 +48,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ru">
       <body className={inter.className}>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          {children}
+          <SeasonalEffects />
+        </QueryProvider>
       </body>
     </html>
   );

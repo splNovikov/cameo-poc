@@ -107,10 +107,7 @@ function initializeMap(
 /**
  * Load Yandex Maps script
  */
-function loadYandexMapsScript(
-  onLoad: () => void,
-  onError: () => void
-): void {
+function loadYandexMapsScript(onLoad: () => void, onError: () => void): void {
   const script = document.createElement('script');
   script.id = YANDEX_MAPS_SCRIPT_ID;
   script.src = YANDEX_MAPS_API_URL;
@@ -136,12 +133,7 @@ function isScriptLoaded(): boolean {
  * Hook for Yandex Maps initialization and management
  * Extracts business logic from component
  */
-export function useYandexMap({
-  properties,
-  center,
-  zoom = 13,
-  mapRef,
-}: UseYandexMapProps): void {
+export function useYandexMap({ properties, center, zoom = 13, mapRef }: UseYandexMapProps): void {
   const mapInstanceRef = useRef<any>(null);
   const checkIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -211,4 +203,3 @@ export function useYandexMap({
     };
   }, [initMap]);
 }
-

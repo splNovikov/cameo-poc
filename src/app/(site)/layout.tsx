@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { Phone, MapPin, Instagram, Send } from 'lucide-react';
-import { pathKeys } from '@shared/router';
 import { siteConfig, NAVIGATION_ITEMS } from '@shared/config';
 import { Logo } from '@shared/ui/logo';
 import { MobileNavigation } from '@widgets/mobile-navigation';
@@ -101,16 +100,38 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
               <div className="mb-3 md:mb-4 lg:mb-6">
                 <Logo linkToHome={true} height="h-8" showText={false} />
               </div>
-              <p className="text-xs text-text-light md:text-sm lg:text-base">
+              <p className="mb-3 text-[10px] text-text-light md:mb-4 md:text-xs lg:mb-6 lg:text-sm">
                 {siteConfig.description}
               </p>
+              <div className="flex items-center gap-2 md:gap-3">
+                <a
+                  href={siteConfig.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-text-light transition-colors hover:text-primary"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                </a>
+                {siteConfig.social.telegram && (
+                  <a
+                    href={siteConfig.social.telegram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-text-light transition-colors hover:text-primary"
+                    aria-label="Telegram"
+                  >
+                    <Send className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                  </a>
+                )}
+              </div>
             </div>
             <div>
-              <h3 className="mb-3 text-sm font-semibold md:mb-4 md:text-base lg:mb-6 lg:text-lg">
+              <h3 className="mb-3 text-xs font-semibold md:mb-4 md:text-sm lg:mb-6 lg:text-base">
                 Контакты
               </h3>
               <div className="space-y-2 md:space-y-3">
-                <div className="text-xs text-text-light md:text-sm lg:text-base">
+                <div className="text-[10px] text-text-light md:text-xs lg:text-sm">
                   <p className="mb-1 font-medium">Отель:</p>
                   <a
                     href={siteConfig.contact.addresses.hotel[0].mapUrl}
@@ -121,7 +142,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                     {siteConfig.contact.addresses.hotel[0].address}
                   </a>
                 </div>
-                <div className="text-xs text-text-light md:text-sm lg:text-base">
+                <div className="text-[10px] text-text-light md:text-xs lg:text-sm">
                   <p className="mb-1 font-medium">Апартаменты:</p>
                   {siteConfig.contact.addresses.apartments.map((location, index) => (
                     <a
@@ -135,7 +156,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                     </a>
                   ))}
                 </div>
-                <div className="text-xs text-text-light md:text-sm lg:text-base">
+                <div className="text-[10px] text-text-light md:text-xs lg:text-sm">
                   <p className="mb-1 font-medium">Телефоны:</p>
                   {siteConfig.contact.phones.map((phone, index) => (
                     <a
@@ -147,44 +168,29 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                     </a>
                   ))}
                 </div>
-                <p className="text-xs text-text-light md:text-sm lg:text-base">
+                <p className="text-[10px] text-text-light md:text-xs lg:text-sm">
                   {siteConfig.contact.email}
                 </p>
               </div>
             </div>
             <div>
-              <h3 className="mb-3 text-sm font-semibold md:mb-4 md:text-base lg:mb-6 lg:text-lg">
+              <h3 className="mb-3 text-xs font-semibold md:mb-4 md:text-sm lg:mb-6 lg:text-base">
                 Навигация
               </h3>
-              <div className="flex flex-col gap-2 text-xs md:gap-3 md:text-sm lg:text-base">
-                <Link
-                  href={pathKeys.properties}
-                  className="text-text-light transition-colors hover:text-primary"
-                >
-                  Объекты
-                </Link>
-                <Link
-                  href={pathKeys.offers}
-                  className="text-text-light transition-colors hover:text-primary"
-                >
-                  Акции
-                </Link>
-                <Link
-                  href={pathKeys.about}
-                  className="text-text-light transition-colors hover:text-primary"
-                >
-                  О нас
-                </Link>
-                <Link
-                  href={pathKeys.contacts}
-                  className="text-text-light transition-colors hover:text-primary"
-                >
-                  Контакты
-                </Link>
+              <div className="flex flex-col gap-2 text-[10px] md:gap-3 md:text-xs lg:text-sm">
+                {NAVIGATION_ITEMS.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="text-text-light transition-colors hover:text-primary"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
-          <div className="mt-6 border-t border-border pt-6 text-center text-xs text-text-light md:mt-8 md:pt-8 md:text-sm lg:mt-12 lg:pt-12 lg:text-base xl:mt-16">
+          <div className="mt-6 border-t border-border pt-6 text-center text-[10px] text-text-light md:mt-8 md:pt-8 md:text-xs lg:mt-12 lg:pt-12 lg:text-sm xl:mt-16">
             © {new Date().getFullYear()} {siteConfig.name}. Все права защищены.
           </div>
         </div>
