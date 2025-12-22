@@ -1,59 +1,69 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import { ChevronUp } from 'lucide-react';
 import { BookingWidget } from '@features/booking-widget';
 import { cn } from '@shared/lib/utils';
+import { useMobileBookingSticky } from './use-mobile-booking-sticky';
+import styles from './mobile-booking-sticky.module.css';
 
 /**
  * Sticky bottom booking form for mobile devices
  * Collapsible, always accessible
+ * Uses glassmorphism design with gradient effects
  */
 export function MobileBookingSticky() {
-  const [isCollapsed, setIsCollapsed] = useState(true);
+  const { isCollapsed, toggleCollapse, handleKeyDown } = useMobileBookingSticky();
 
-  const toggleCollapse = useCallback(() => {
-    setIsCollapsed((prev) => !prev);
-  }, []);
+  const handleToggleClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      toggleCollapse();
+    },
+    [toggleCollapse]
+  );
+
+  const ariaLabel = isCollapsed
+    ? 'Развернуть форму бронирования'
+    : 'Свернуть форму бронирования';
+  const toggleAriaLabel = isCollapsed ? 'Развернуть' : 'Свернуть';
 
   return (
     <div
       className={cn(
-        'fixed bottom-0 left-0 right-0 z-[9999] flex flex-col bg-white shadow-2xl transition-all duration-300 md:hidden',
-        isCollapsed ? 'h-16' : 'h-screen'
+        styles.container,
+        isCollapsed ? styles.containerCollapsed : styles.containerExpanded
       )}
     >
       {/* Header Bar - Always visible and clickable */}
       <div
-        className="flex shrink-0 cursor-pointer items-center justify-between border-t-2 border-primary bg-primary px-4 py-4 shadow-lg"
+        className={styles.headerBar}
         onClick={toggleCollapse}
+        onKeyDown={handleKeyDown}
         role="button"
         tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            toggleCollapse();
-          }
-        }}
-        aria-label={isCollapsed ? 'Развернуть форму бронирования' : 'Свернуть форму бронирования'}
+        aria-label={ariaLabel}
       >
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-bold text-white">Забронировать номер</span>
+        {/* Glassmorphism overlay with gradient */}
+        <div className={styles.glassOverlay} />
+
+        {/* Animated border glow */}
+        <div className={styles.borderGlow} />
+
+        {/* Shimmer effect */}
+        <span className={styles.shimmer} />
+
+        <div className={styles.contentWrapper}>
+          <span className={styles.label}>Забронировать номер</span>
         </div>
         <button
           type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleCollapse();
-          }}
-          className="p-1 text-white transition-colors hover:text-white/80 active:scale-95"
-          aria-label={isCollapsed ? 'Развернуть' : 'Свернуть'}
+          onClick={handleToggleClick}
+          className={styles.toggleButton}
+          aria-label={toggleAriaLabel}
         >
           <ChevronUp
-            className={cn(
-              'h-6 w-6 transition-transform duration-300',
-              !isCollapsed && 'rotate-180'
-            )}
+            className={cn(styles.chevron, !isCollapsed && styles.chevronRotated)}
           />
         </button>
       </div>
@@ -61,11 +71,13 @@ export function MobileBookingSticky() {
       {/* Booking Form - Full height when expanded */}
       <div
         className={cn(
-          'flex-1 overflow-hidden transition-all duration-300',
-          isCollapsed ? 'pointer-events-none max-h-0 opacity-0' : 'pointer-events-auto opacity-100'
+          styles.formContainer,
+          isCollapsed
+            ? styles.formContainerCollapsed
+            : styles.formContainerExpanded
         )}
       >
-        <div className="h-full overflow-y-auto bg-white px-4 py-4">
+        <div className={styles.formContent}>
           <BookingWidget />
         </div>
       </div>
