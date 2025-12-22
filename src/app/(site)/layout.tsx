@@ -77,9 +77,10 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="flex h-14 items-center whitespace-nowrap text-xs transition-colors hover:text-primary md:h-16 md:text-sm lg:h-20 lg:text-base"
+                  className="group relative flex h-14 items-center whitespace-nowrap text-xs transition-colors hover:text-primary md:h-16 md:text-sm lg:h-20 lg:text-base"
                 >
-                  {item.label}
+                  <span className="relative z-10">{item.label}</span>
+                  <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-primary transition-all duration-300 group-hover:w-full" />
                 </Link>
               ))}
             </div>
