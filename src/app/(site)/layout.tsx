@@ -5,6 +5,8 @@ import { siteConfig, NAVIGATION_ITEMS } from '@shared/config';
 import { Logo } from '@shared/ui/logo';
 import { MobileNavigation } from '@widgets/mobile-navigation';
 import { Button } from '@shared/ui/button';
+import { ContactLink } from '@shared/ui/contact-link';
+import { formatPhoneForTel } from '@shared/lib/utils/format';
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -16,27 +18,20 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             <div className="flex h-10 items-center justify-between text-xs lg:h-12 lg:text-sm">
               {/* Contact Info */}
               <div className="flex items-center gap-4 lg:gap-6">
-                <a
-                  href={siteConfig.contact.addresses.hotel[0].mapUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-text-light transition-colors hover:text-primary"
-                >
-                  <MapPin className="h-3.5 w-3.5 shrink-0 lg:h-4 lg:w-4" />
-                  <span className="text-xs lg:text-sm">
-                    {siteConfig.contact.addresses.hotel[0].address}
-                  </span>
-                </a>
+                <ContactLink
+                  value={siteConfig.contact.addresses.hotel[0].address}
+                  icon={<MapPin className="h-3.5 w-3.5 shrink-0 lg:h-4 lg:w-4" />}
+                  type="address"
+                  mapUrl={siteConfig.contact.addresses.hotel[0].mapUrl}
+                />
                 <div className="flex items-center gap-3 lg:gap-4">
                   {siteConfig.contact.phones.map((phone, index) => (
-                    <a
+                    <ContactLink
                       key={index}
-                      href={`tel:${phone.replace(/\s/g, '').replace(/[()]/g, '')}`}
-                      className="flex items-center gap-1.5 text-text-light transition-colors hover:text-primary"
-                    >
-                      <Phone className="h-3.5 w-3.5 shrink-0 lg:h-4 lg:w-4" />
-                      <span className="text-xs lg:text-sm">{phone}</span>
-                    </a>
+                      value={phone}
+                      icon={<Phone className="h-3.5 w-3.5 shrink-0 lg:h-4 lg:w-4" />}
+                      type="phone"
+                    />
                   ))}
                 </div>
               </div>
@@ -145,7 +140,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                   {siteConfig.contact.phones.map((phone, index) => (
                     <a
                       key={index}
-                      href={`tel:${phone.replace(/\s/g, '').replace(/[()]/g, '')}`}
+                      href={`tel:${formatPhoneForTel(phone)}`}
                       className="block transition-colors hover:text-primary"
                     >
                       {phone}

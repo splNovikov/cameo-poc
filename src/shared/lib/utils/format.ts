@@ -32,7 +32,7 @@ export function formatRelativeTime(date: Date | string): string {
 }
 
 /**
- * Format phone number
+ * Format phone number for display
  */
 export function formatPhone(phone: string): string {
   const cleaned = phone.replace(/\D/g, '');
@@ -40,4 +40,13 @@ export function formatPhone(phone: string): string {
     return `+7 (${cleaned.slice(1, 4)}) ${cleaned.slice(4, 7)}-${cleaned.slice(7, 9)}-${cleaned.slice(9)}`;
   }
   return phone;
+}
+
+/**
+ * Format phone number for tel: link (removes spaces, parentheses, and dashes)
+ * @param phone - Phone number string (e.g., "+7 (812) 328 15 15")
+ * @returns Formatted phone number for tel: links (e.g., "+78123281515")
+ */
+export function formatPhoneForTel(phone: string): string {
+  return phone.replace(/\s/g, '').replace(/[()]/g, '').replace(/-/g, '');
 }

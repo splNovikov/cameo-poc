@@ -22,8 +22,16 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 /**
- * Button - Unified button component for the entire application
+ * Primary button effect classes - extracted for maintainability
  */
+const PRIMARY_BUTTON_EFFECTS =
+  'hover:shadow-primary/30 group relative overflow-hidden bg-primary font-semibold text-white shadow-md transition-all duration-300 hover:scale-[1.02] hover:bg-primary-dark hover:shadow-lg';
+
+/**
+ * Button - Unified button component for the entire application
+ * Mobile-first: Base styles work on mobile, no responsive breakpoints needed
+ */
+
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
@@ -51,8 +59,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             'h-9 px-3 text-xs': size === 'sm',
             'h-11 px-8 text-base': size === 'lg',
             // Primary button with attractive effects
-            'hover:shadow-primary/30 group relative overflow-hidden bg-primary font-semibold text-white shadow-md transition-all duration-300 hover:scale-[1.02] hover:bg-primary-dark hover:shadow-lg':
-              isPrimary,
+            [PRIMARY_BUTTON_EFFECTS]: isPrimary,
             'bg-error text-white hover:bg-red-700': variant === 'destructive',
             'border border-border bg-transparent hover:bg-bg-secondary': variant === 'outline',
             'bg-secondary text-white hover:bg-secondary-dark': variant === 'secondary',
