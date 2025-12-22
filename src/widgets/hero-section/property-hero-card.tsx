@@ -83,10 +83,10 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
 
       {/* Content Overlay */}
       <div
-        className={`relative z-30 flex h-full flex-col px-4 py-4 transition-all duration-700 md:px-8 md:py-0 ${
+        className={`relative z-30 flex h-full flex-col px-4 py-6 transition-all duration-700 md:px-8 md:py-8 ${
           isLeft
-            ? 'items-start justify-start text-left md:justify-center'
-            : 'items-end justify-start text-right md:justify-center'
+            ? 'items-start justify-start text-left md:justify-start md:pb-32'
+            : 'items-end justify-start text-right md:justify-start md:pb-32'
         } ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-90'}`}
       >
         <div className="max-w-md md:max-w-lg">
@@ -108,7 +108,7 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
               </h2>
               {propertyType.property.shortDescription && (
                 <p
-                  className={`mb-3 line-clamp-2 text-xs leading-relaxed transition-opacity duration-500 md:mb-4 md:line-clamp-none md:text-sm lg:text-base ${
+                  className={`mb-3 line-clamp-3 text-xs leading-relaxed transition-opacity duration-500 md:mb-4 md:line-clamp-4 md:text-sm lg:text-base ${
                     isHovered ? 'text-white/90' : 'text-white/70'
                   }`}
                 >

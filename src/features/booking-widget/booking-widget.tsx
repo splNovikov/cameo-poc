@@ -1,50 +1,19 @@
 'use client';
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Calendar, Users } from 'lucide-react';
-import { BookingSearchSchema, type BookingSearch } from '@entities/booking';
 import { Button } from '@shared/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@shared/ui/card';
-import { integrationsConfig } from '@shared/config';
+import { useBookingForm, getDefaultBookingDates } from './use-booking-form';
+import { BookingFormField } from './booking-form-field';
 
 export function BookingWidget() {
-  const [isLoading, setIsLoading] = useState(false);
-
+  const { form, isLoading, onSubmit } = useBookingForm();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<BookingSearch>({
-    resolver: zodResolver(BookingSearchSchema),
-    defaultValues: {
-      checkIn: new Date().toISOString().split('T')[0],
-      checkOut: new Date(Date.now() + 86400000).toISOString().split('T')[0],
-      adults: 2,
-      children: 0,
-      rooms: 1,
-    },
-  });
-
-  const onSubmit = async (data: BookingSearch) => {
-    setIsLoading(true);
-    try {
-      // Redirect to Travelline booking page or handle booking
-      const widgetId = integrationsConfig.travelline.widgetId;
-      if (widgetId) {
-        // In a real implementation, this would integrate with Travelline widget
-        window.open(
-          `https://travelline.ru/widget/${widgetId}?checkIn=${data.checkIn}&checkOut=${data.checkOut}&adults=${data.adults}`,
-          '_blank'
-        );
-      }
-    } catch (error) {
-      console.error('Booking error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  } = form;
+  const { checkIn: minDate } = getDefaultBookingDates();
 
   return (
     <Card className="w-full">
@@ -54,50 +23,44 @@ export function BookingWidget() {
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div>
-              <label htmlFor="checkIn" className="mb-2 flex items-center gap-2 text-sm font-medium">
-                <Calendar className="h-4 w-4" />
-                Заезд
-              </label>
+            <BookingFormField
+              id="checkIn"
+              label="Заезд"
+              icon={<Calendar className="h-4 w-4" />}
+              error={errors.checkIn}
+            >
               <input
                 id="checkIn"
                 type="date"
                 {...register('checkIn')}
                 className="w-full rounded-md border border-border bg-bg px-3 py-2"
-                min={new Date().toISOString().split('T')[0]}
+                min={minDate}
               />
-              {errors.checkIn && (
-                <p className="mt-1 text-sm text-error">{errors.checkIn.message}</p>
-              )}
-            </div>
+            </BookingFormField>
 
-            <div>
-              <label
-                htmlFor="checkOut"
-                className="mb-2 flex items-center gap-2 text-sm font-medium"
-              >
-                <Calendar className="h-4 w-4" />
-                Выезд
-              </label>
+            <BookingFormField
+              id="checkOut"
+              label="Выезд"
+              icon={<Calendar className="h-4 w-4" />}
+              error={errors.checkOut}
+            >
               <input
                 id="checkOut"
                 type="date"
                 {...register('checkOut')}
                 className="w-full rounded-md border border-border bg-bg px-3 py-2"
-                min={new Date().toISOString().split('T')[0]}
+                min={minDate}
               />
-              {errors.checkOut && (
-                <p className="mt-1 text-sm text-error">{errors.checkOut.message}</p>
-              )}
-            </div>
+            </BookingFormField>
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div>
-              <label htmlFor="adults" className="mb-2 flex items-center gap-2 text-sm font-medium">
-                <Users className="h-4 w-4" />
-                Взрослые
-              </label>
+            <BookingFormField
+              id="adults"
+              label="Взрослые"
+              icon={<Users className="h-4 w-4" />}
+              error={errors.adults}
+            >
               <input
                 id="adults"
                 type="number"
@@ -106,13 +69,9 @@ export function BookingWidget() {
                 {...register('adults', { valueAsNumber: true })}
                 className="w-full rounded-md border border-border bg-bg px-3 py-2"
               />
-              {errors.adults && <p className="mt-1 text-sm text-error">{errors.adults.message}</p>}
-            </div>
+            </BookingFormField>
 
-            <div>
-              <label htmlFor="children" className="mb-2 text-sm font-medium">
-                Дети
-              </label>
+            <BookingFormField id="children" label="Дети" error={errors.children}>
               <input
                 id="children"
                 type="number"
@@ -121,15 +80,9 @@ export function BookingWidget() {
                 {...register('children', { valueAsNumber: true })}
                 className="w-full rounded-md border border-border bg-bg px-3 py-2"
               />
-              {errors.children && (
-                <p className="mt-1 text-sm text-error">{errors.children.message}</p>
-              )}
-            </div>
+            </BookingFormField>
 
-            <div>
-              <label htmlFor="rooms" className="mb-2 text-sm font-medium">
-                Номера
-              </label>
+            <BookingFormField id="rooms" label="Номера" error={errors.rooms}>
               <input
                 id="rooms"
                 type="number"
@@ -138,8 +91,7 @@ export function BookingWidget() {
                 {...register('rooms', { valueAsNumber: true })}
                 className="w-full rounded-md border border-border bg-bg px-3 py-2"
               />
-              {errors.rooms && <p className="mt-1 text-sm text-error">{errors.rooms.message}</p>}
-            </div>
+            </BookingFormField>
           </div>
 
           <Button type="submit" fullWidth disabled={isLoading}>
