@@ -23,9 +23,7 @@ export function MobileBookingSticky() {
     [toggleCollapse]
   );
 
-  const ariaLabel = isCollapsed
-    ? 'Развернуть форму бронирования'
-    : 'Свернуть форму бронирования';
+  const ariaLabel = isCollapsed ? 'Развернуть форму бронирования' : 'Свернуть форму бронирования';
   const toggleAriaLabel = isCollapsed ? 'Развернуть' : 'Свернуть';
 
   return (
@@ -62,9 +60,7 @@ export function MobileBookingSticky() {
           className={styles.toggleButton}
           aria-label={toggleAriaLabel}
         >
-          <ChevronUp
-            className={cn(styles.chevron, !isCollapsed && styles.chevronRotated)}
-          />
+          <ChevronUp className={cn(styles.chevron, !isCollapsed && styles.chevronRotated)} />
         </button>
       </div>
 
@@ -72,9 +68,7 @@ export function MobileBookingSticky() {
       <div
         className={cn(
           styles.formContainer,
-          isCollapsed
-            ? styles.formContainerCollapsed
-            : styles.formContainerExpanded
+          isCollapsed ? styles.formContainerCollapsed : styles.formContainerExpanded
         )}
       >
         <div className={styles.formContent}>

@@ -6,6 +6,7 @@ import { siteConfig } from '@shared/config';
 import { formatPhoneForTel } from '@shared/lib/utils/format';
 import { useContactsSection } from './use-contacts-section';
 import { Card, CardContent, CardHeader, CardTitle } from '@shared/ui/card';
+import { SocialLink } from '@shared/ui/social-link';
 import styles from './contacts-section.module.css';
 
 interface ContactsSectionProps {
@@ -99,27 +100,23 @@ export function ContactsSection({ className: _className }: ContactsSectionProps 
                 </div>
 
                 <div className={styles.socialLinks}>
-                  <a
+                  <SocialLink
                     href={siteConfig.social.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    icon={<Instagram className={styles.socialIcon} />}
+                    ariaLabel="Instagram"
+                    label="Instagram"
+                    showLabel={true}
                     className={styles.socialLink}
-                    aria-label="Instagram"
-                  >
-                    <Instagram className={styles.socialIcon} />
-                    <span>Instagram</span>
-                  </a>
+                  />
                   {siteConfig.social.telegram && (
-                    <a
+                    <SocialLink
                       href={siteConfig.social.telegram}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      icon={<Send className={styles.socialIcon} />}
+                      ariaLabel="Telegram"
+                      label="Telegram"
+                      showLabel={true}
                       className={styles.socialLink}
-                      aria-label="Telegram"
-                    >
-                      <Send className={styles.socialIcon} />
-                      <span>Telegram</span>
-                    </a>
+                    />
                   )}
                 </div>
               </CardContent>
