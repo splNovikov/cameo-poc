@@ -5,6 +5,7 @@ import { useHeroSection } from './use-hero-section';
 import { PropertyHeroCard } from './property-hero-card';
 import { DesktopBookingBar } from './desktop-booking-bar';
 import { MobileBookingSticky } from './mobile-booking-sticky';
+import { useHeroAnimations } from './use-hero-animations';
 
 interface HeroSectionProps {
   properties?: Property[];
@@ -14,6 +15,7 @@ export function HeroSection({ properties = [] }: HeroSectionProps) {
   const { propertyTypes, hoveredType, setHoveredType } = useHeroSection({
     properties,
   });
+  const { isVisible } = useHeroAnimations();
 
   return (
     <>
@@ -28,6 +30,7 @@ export function HeroSection({ properties = [] }: HeroSectionProps) {
               isHovered={hoveredType === propertyType.type}
               onMouseEnter={() => setHoveredType(propertyType.type)}
               onMouseLeave={() => setHoveredType(null)}
+              isVisible={isVisible}
             />
           ))}
         </div>

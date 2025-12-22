@@ -1,10 +1,12 @@
 'use client';
 
-import { memo } from 'react';
+import { memo, useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { type PropertyTypeData } from './use-hero-section';
 import { useImageRotation } from './use-image-rotation';
+import { cn } from '@shared/lib/utils';
+import styles from './hero.module.css';
 
 interface PropertyHeroCardProps {
   propertyType: PropertyTypeData;
@@ -12,6 +14,7 @@ interface PropertyHeroCardProps {
   isHovered: boolean;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
+  isVisible?: boolean;
 }
 
 /**
@@ -24,6 +27,7 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
   isHovered,
   onMouseEnter,
   onMouseLeave,
+  isVisible = true,
 }: PropertyHeroCardProps) {
   const isLeft = index === 0;
   const { currentImageIndex, setCurrentImageIndex, hasMultipleImages } = useImageRotation({
@@ -31,6 +35,21 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
     isActive: isHovered,
     interval: 3000,
   });
+  const [imagesLoaded, setImagesLoaded] = useState<Set<string>>(new Set());
+  const [isImageLoading, setIsImageLoading] = useState(true);
+
+  // Check if all images are loaded
+  useEffect(() => {
+    const imagesToLoad = hasMultipleImages ? propertyType.images : [propertyType.image];
+    const allLoaded = imagesToLoad.every((img) => imagesLoaded.has(img));
+    if (allLoaded && imagesToLoad.length > 0) {
+      setIsImageLoading(false);
+    }
+  }, [imagesLoaded, hasMultipleImages, propertyType.images, propertyType.image]);
+
+  const handleImageLoad = (imageSrc: string) => {
+    setImagesLoaded((prev) => new Set(prev).add(imageSrc));
+  };
 
   return (
     <Link
@@ -41,10 +60,20 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
     >
       {/* Background Image */}
       <div
-        className={`absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-110 ${
+        className={cn(
+          styles.heroImageParallax,
+          'absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-110',
           isHovered ? 'scale-110' : 'scale-100'
-        }`}
+        )}
       >
+        {/* Loading Placeholder */}
+        <div
+          className={cn(
+            styles.heroImagePlaceholder,
+            !isImageLoading && styles.heroImagePlaceholderHidden
+          )}
+        />
+
         {hasMultipleImages ? (
           // Multiple images with fade transition
           propertyType.images.map((image, imgIndex) => (
@@ -58,6 +87,8 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
               }`}
               priority={index === 0 && imgIndex === 0}
               sizes="(max-width: 768px) 100vw, 50vw"
+              onLoad={() => handleImageLoad(image)}
+              onLoadingComplete={() => handleImageLoad(image)}
             />
           ))
         ) : (
@@ -69,61 +100,85 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
             className="object-cover"
             priority={index === 0}
             sizes="(max-width: 768px) 100vw, 50vw"
+            onLoad={() => handleImageLoad(propertyType.image)}
+            onLoadingComplete={() => handleImageLoad(propertyType.image)}
           />
         )}
         {/* Gradient Overlay */}
         <div
-          className={`absolute inset-0 transition-opacity duration-700 group-hover:opacity-90 ${
-            isHovered
-              ? 'bg-gradient-to-br from-black/60 via-black/50 to-black/40'
-              : 'bg-gradient-to-br from-black/70 via-black/60 to-black/50'
-          }`}
+          className={cn(
+            styles.heroGradientOverlay,
+            'absolute inset-0 transition-opacity duration-700 group-hover:opacity-90',
+            isHovered ? 'opacity-90' : 'opacity-100'
+          )}
         />
+        {/* Shimmer Effect */}
+        {isHovered && (
+          <div className={cn(styles.heroShimmer, 'absolute inset-0 pointer-events-none z-20')} />
+        )}
       </div>
 
       {/* Content Overlay */}
       <div
-        className={`relative z-30 flex h-full flex-col px-4 py-6 transition-all duration-700 md:px-8 md:py-8 ${
+        className={`relative z-30 flex h-full flex-col px-6 py-8 transition-all duration-700 md:px-12 md:py-12 lg:px-16 lg:py-16 ${
           isLeft
-            ? 'items-start justify-start text-left md:justify-start md:pb-32'
-            : 'items-end justify-start text-right md:justify-start md:pb-32'
+            ? 'items-start justify-center text-left md:justify-center md:pb-32'
+            : 'items-end justify-center text-right md:justify-center md:pb-32'
         } ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-90'}`}
       >
-        <div className="max-w-md md:max-w-lg">
+        <div className={cn('max-w-md md:max-w-lg lg:max-w-xl', isLeft ? 'md:ml-8 lg:ml-12' : 'md:mr-8 lg:mr-12')}>
           <div
-            className={`hero-label mb-2 text-xs font-medium uppercase tracking-wider transition-colors duration-300 md:text-sm ${
+            className={cn(
+              styles.heroLabel,
+              styles.heroLabelAccent,
+              styles.heroContentEnter,
+              'mb-4 text-xs font-medium uppercase tracking-widest transition-colors duration-300 md:text-sm md:mb-5',
+              !isLeft && styles.heroLabelAccentRight,
               isHovered ? 'text-white' : 'text-white/80'
-            }`}
+            )}
           >
             {propertyType.label}
           </div>
           {propertyType.property && (
             <>
               <h2
-                className={`hero-title mb-2 text-white transition-all duration-500 md:mb-3 text-2xl md:text-3xl lg:text-4xl xl:text-5xl ${
-                  isHovered ? 'scale-105' : ''
-                }`}
+                className={cn(
+                  styles.heroTitle,
+                  styles.heroTitleElegant,
+                  styles.heroContentEnterDelay1,
+                  styles.heroTextShadowDeep,
+                  'mb-4 text-white transition-all duration-500 md:mb-5 text-2xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl',
+                  isHovered && 'scale-105'
+                )}
               >
                 {propertyType.property.name}
               </h2>
               {propertyType.property.shortDescription && (
                 <p
-                  className={`hero-description mb-3 line-clamp-3 transition-opacity duration-500 md:mb-4 md:line-clamp-4 text-white text-sm md:text-base lg:text-lg ${
-                    isHovered ? 'opacity-90' : 'opacity-70'
-                  }`}
+                  className={cn(
+                    styles.heroDescription,
+                    styles.heroDescriptionRefined,
+                    styles.heroContentEnterDelay1,
+                    'mb-6 line-clamp-3 transition-opacity duration-500 md:mb-8 md:line-clamp-4 text-white text-sm md:text-sm lg:text-base xl:text-lg',
+                    isHovered ? 'opacity-95 text-white' : 'opacity-80 text-white/90'
+                  )}
                 >
                   {propertyType.property.shortDescription}
                 </p>
               )}
               <div
-                className={`inline-flex items-center gap-2 rounded-full border-2 px-3 py-1 text-xs font-medium transition-all duration-300 group-hover:scale-105 group-hover:bg-white/20 group-hover:shadow-lg md:px-6 md:py-2 md:text-sm ${
+                className={cn(
+                  styles.heroButton,
+                  styles.heroContentEnterDelay2,
+                  'inline-flex items-center gap-3 rounded-full border-2 px-5 py-2.5 text-xs font-semibold tracking-wide transition-all duration-300 group-hover:scale-105 group-hover:bg-white/20 group-hover:shadow-xl md:px-8 md:py-3 md:text-sm',
                   isHovered
-                    ? 'border-white bg-white/10 text-white shadow-lg'
-                    : 'border-white/50 bg-white/5 text-white/80'
-                }`}
+                    ? 'border-white bg-white/15 text-white shadow-2xl backdrop-blur-sm'
+                    : 'border-white/60 bg-white/8 text-white/90 backdrop-blur-sm',
+                  isHovered && styles.heroButtonPulse
+                )}
               >
                 Подробнее
-                <span className="transition-transform duration-300 group-hover:translate-x-1">
+                <span className="transition-transform duration-300 group-hover:translate-x-1 text-lg md:text-xl">
                   →
                 </span>
               </div>
@@ -159,9 +214,13 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
 
       {/* Hover indicator line */}
       <div
-        className={`hero-indicator-line absolute bottom-0 left-0 right-0 h-1 bg-white transition-opacity duration-700 ${
-          isLeft ? '' : 'hero-indicator-line--right'
-        } ${isHovered ? 'hero-indicator-line--active opacity-100' : 'opacity-0'}`}
+        className={cn(
+          styles.heroIndicatorLine,
+          'absolute bottom-0 left-0 right-0 h-1 bg-white transition-opacity duration-700',
+          !isLeft && styles.heroIndicatorLineRight,
+          isHovered && styles.heroIndicatorLineActive,
+          isHovered ? 'opacity-100' : 'opacity-0'
+        )}
       />
     </Link>
   );

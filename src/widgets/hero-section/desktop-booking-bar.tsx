@@ -6,6 +6,7 @@ import { useBookingForm } from '@features/booking-widget/use-booking-form';
 import { BookingFormField } from '@features/booking-widget/booking-form-field';
 import { getDefaultBookingDates } from '@features/booking-widget/use-booking-form';
 import { cn } from '@shared/lib/utils';
+import styles from './hero.module.css';
 
 /**
  * Horizontal compact booking bar for desktop
@@ -21,7 +22,7 @@ export function DesktopBookingBar() {
   const { checkIn: minDate } = getDefaultBookingDates();
 
   return (
-    <div className="absolute bottom-0 left-0 right-0 z-50 hidden border-t border-border bg-white shadow-2xl md:block">
+    <div className={cn(styles.heroBookingEnter, 'absolute bottom-0 left-0 right-0 z-50 hidden border-t border-border bg-white shadow-2xl md:block')}>
       <div className="mx-auto max-w-7xl px-4 py-4 lg:px-8">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-wrap items-end gap-3 lg:flex-nowrap lg:gap-4">
           <BookingFormField

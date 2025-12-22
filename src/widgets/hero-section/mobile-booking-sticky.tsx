@@ -17,10 +17,7 @@ export function MobileBookingSticky() {
   }, []);
 
   return (
-    <>
-      {/* Spacer to prevent content overlap when collapsed */}
-      {isCollapsed && <div className="h-16 md:hidden" />}
-      <div
+    <div
         className={cn(
           'fixed bottom-0 left-0 right-0 z-[9999] flex flex-col bg-white shadow-2xl transition-all duration-300 md:hidden',
           isCollapsed ? 'h-16' : 'h-screen'
@@ -68,6 +65,5 @@ export function MobileBookingSticky() {
         </div>
       </div>
     </div>
-    </>
   );
 }
