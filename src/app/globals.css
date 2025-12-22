@@ -9,8 +9,8 @@
 @tailwind utilities;
 
 :root {
-  /* Force dark color scheme */
-  color-scheme: dark;
+  /* Force light color scheme */
+  color-scheme: light;
 
   /* ============================================
      TYPOGRAPHY
@@ -52,33 +52,33 @@
   /* ============================================
      SHADOWS
      ============================================ */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
-  --shadow-header: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-header: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 
   /* ============================================
-     COLORS - DARK THEME
+     COLORS - LIGHT THEME
      ============================================ */
 
   /* Base Colors */
-  --color-bg-body: #0a0a0a;
-  --color-bg-surface: #1a1a1a;
-  --color-bg-surface-hover: #242424;
-  --color-bg-surface-active: #2e2e2e;
+  --color-bg-body: #ffffff;
+  --color-bg-surface: #f9fafb;
+  --color-bg-surface-hover: #f3f4f6;
+  --color-bg-surface-active: #e5e7eb;
   --color-bg-white: #ffffff;
 
   /* Background Gradient */
-  --color-bg-gradient-start: #000508;
-  --color-bg-gradient-end: #001020;
+  --color-bg-gradient-start: #ffffff;
+  --color-bg-gradient-end: #f9fafb;
 
   /* Text Colors */
-  --color-text: rgba(255, 255, 255, 0.92);
-  --color-text-primary: rgba(255, 255, 255, 0.92);
-  --color-text-secondary: rgba(255, 255, 255, 0.65);
-  --color-text-tertiary: rgba(255, 255, 255, 0.45);
-  --color-text-disabled: rgba(255, 255, 255, 0.25);
+  --color-text: rgba(17, 24, 39, 0.92);
+  --color-text-primary: rgba(17, 24, 39, 0.92);
+  --color-text-secondary: rgba(17, 24, 39, 0.65);
+  --color-text-tertiary: rgba(17, 24, 39, 0.45);
+  --color-text-disabled: rgba(17, 24, 39, 0.25);
 
   /* Brand Colors */
   --color-primary: #245b21;
@@ -105,8 +105,8 @@
   --color-info-rgb: 96, 165, 250;
 
   /* Border Colors */
-  --color-border: #2e2e2e;
-  --color-border-hover: #3a3a3a;
+  --color-border: #e5e7eb;
+  --color-border-hover: #d1d5db;
   --color-border-focus: var(--color-primary);
 
   /* Links */
@@ -114,16 +114,16 @@
   --color-link-hover: var(--color-primary-hover);
 
   /* Buttons (native <button>, not Radix) */
-  --color-button-bg: #2a2a2a;
+  --color-button-bg: #f3f4f6;
   --color-button-border: transparent;
   --color-button-focus-outline: var(--color-primary);
 
   /* Layout */
-  --color-layout-main-bg: #0a0a0a;
+  --color-layout-main-bg: #ffffff;
   --color-layout-main-text: var(--color-text-primary);
 
-  --color-layout-footer-bg: #1a1a1a;
-  --color-layout-footer-border: #2e2e2e;
+  --color-layout-footer-bg: #f9fafb;
+  --color-layout-footer-border: #e5e7eb;
   --color-layout-footer-text: var(--color-text-secondary);
 
   /* Page 404 */
@@ -141,7 +141,7 @@
   --color-error-details-text: #fca5a5;
 
   /* Spinner */
-  --color-spinner-border: rgba(255, 255, 255, 0.1);
+  --color-spinner-border: rgba(0, 0, 0, 0.1);
   --color-spinner-border-top: var(--color-primary);
   --color-spinner-tip: var(--color-text-tertiary);
 
@@ -195,8 +195,8 @@
   /* ============================================
      OVERLAYS & BACKDROPS
      ============================================ */
-  --color-backdrop: rgba(10, 10, 10, 0.6);
-  --color-backdrop-strong: rgba(10, 10, 10, 0.85);
+  --color-backdrop: rgba(255, 255, 255, 0.6);
+  --color-backdrop-strong: rgba(255, 255, 255, 0.85);
 
   /* ============================================
      Z-INDEX SCALE
