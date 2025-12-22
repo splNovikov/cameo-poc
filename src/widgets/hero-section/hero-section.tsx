@@ -1,5 +1,6 @@
 'use client';
 
+import { useCallback } from 'react';
 import { type Property } from '@entities/property';
 import { useHeroSection } from './use-hero-section';
 import { PropertyHeroCard } from './property-hero-card';
@@ -15,7 +16,11 @@ export function HeroSection({ properties = [] }: HeroSectionProps) {
   const { propertyTypes, hoveredType, setHoveredType } = useHeroSection({
     properties,
   });
-  const { isVisible } = useHeroAnimations();
+  useHeroAnimations(); // Keep for potential future use
+
+  const handleMouseLeave = useCallback(() => {
+    setHoveredType(null);
+  }, [setHoveredType]);
 
   return (
     <>
@@ -29,8 +34,7 @@ export function HeroSection({ properties = [] }: HeroSectionProps) {
               index={index}
               isHovered={hoveredType === propertyType.type}
               onMouseEnter={() => setHoveredType(propertyType.type)}
-              onMouseLeave={() => setHoveredType(null)}
-              isVisible={isVisible}
+              onMouseLeave={handleMouseLeave}
             />
           ))}
         </div>

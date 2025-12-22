@@ -1,10 +1,11 @@
 'use client';
 
-import { memo, useState, useEffect } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { type PropertyTypeData } from './use-hero-section';
 import { useImageRotation } from './use-image-rotation';
+import { useHeroImageLoading } from './use-hero-image-loading';
 import { cn } from '@shared/lib/utils';
 import styles from './hero.module.css';
 
@@ -14,7 +15,6 @@ interface PropertyHeroCardProps {
   isHovered: boolean;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
-  isVisible?: boolean;
 }
 
 /**
@@ -27,7 +27,6 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
   isHovered,
   onMouseEnter,
   onMouseLeave,
-  isVisible: _isVisible = true,
 }: PropertyHeroCardProps) {
   const isLeft = index === 0;
   const { currentImageIndex, setCurrentImageIndex, hasMultipleImages } = useImageRotation({
@@ -35,21 +34,34 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
     isActive: isHovered,
     interval: 3000,
   });
-  const [imagesLoaded, setImagesLoaded] = useState<Set<string>>(new Set());
-  const [isImageLoading, setIsImageLoading] = useState(true);
+  const { isImageLoading, handleImageLoad } = useHeroImageLoading({
+    images: propertyType.images,
+    hasMultipleImages,
+    primaryImage: propertyType.image,
+  });
 
-  // Check if all images are loaded
-  useEffect(() => {
-    const imagesToLoad = hasMultipleImages ? propertyType.images : [propertyType.image];
-    const allLoaded = imagesToLoad.every((img) => imagesLoaded.has(img));
-    if (allLoaded && imagesToLoad.length > 0) {
-      setIsImageLoading(false);
-    }
-  }, [imagesLoaded, hasMultipleImages, propertyType.images, propertyType.image]);
+  const handleIndicatorClick = useCallback(
+    (e: React.MouseEvent, imgIndex: number) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setCurrentImageIndex(imgIndex);
+    },
+    [setCurrentImageIndex]
+  );
 
-  const handleImageLoad = (imageSrc: string) => {
-    setImagesLoaded((prev) => new Set(prev).add(imageSrc));
-  };
+  const contentOverlayClassName = useMemo(
+    () =>
+      cn(
+        'relative z-30 flex h-full flex-col px-4 py-4 pb-8 transition-all duration-700',
+        'sm:px-6 sm:py-8 sm:pb-8 md:px-12 md:py-12 md:pb-32 lg:px-16 lg:py-16 lg:pb-32',
+        isLeft
+          ? 'items-start justify-center text-left md:justify-center'
+          : 'items-end justify-center text-right md:justify-center',
+        isHovered ? 'translate-y-0' : 'translate-y-4',
+        'opacity-90'
+      ),
+    [isLeft, isHovered]
+  );
 
   return (
     <Link
@@ -82,9 +94,10 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
               src={image}
               alt={`${propertyType.label} - фото ${imgIndex + 1}`}
               fill
-              className={`object-cover transition-opacity duration-1000 ${
+              className={cn(
+                'object-cover transition-opacity duration-1000',
                 imgIndex === currentImageIndex ? 'opacity-100' : 'opacity-0'
-              }`}
+              )}
               priority={index === 0 && imgIndex === 0}
               sizes="(max-width: 768px) 100vw, 50vw"
               onLoad={() => handleImageLoad(image)}
@@ -119,13 +132,7 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
       </div>
 
       {/* Content Overlay */}
-      <div
-        className={`relative z-30 flex h-full flex-col px-4 py-4 pb-8 transition-all duration-700 sm:px-6 sm:py-8 sm:pb-8 md:px-12 md:py-12 md:pb-32 lg:px-16 lg:py-16 lg:pb-32 ${
-          isLeft
-            ? 'items-start justify-center text-left md:justify-center'
-            : 'items-end justify-center text-right md:justify-center'
-        } ${isHovered ? 'translate-y-0' : 'translate-y-4'} opacity-90`}
-      >
+      <div className={contentOverlayClassName}>
         <div
           className={cn(
             'max-w-md md:max-w-lg lg:max-w-xl',
@@ -195,22 +202,20 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
       {/* Image indicators (dots) - show when multiple images */}
       {hasMultipleImages && (
         <div
-          className={`absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2 transition-opacity duration-300 ${
+          className={cn(
+            'absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2 transition-opacity duration-300',
             isHovered ? 'opacity-100' : 'opacity-0'
-          }`}
+          )}
         >
           {propertyType.images.map((_, imgIndex) => (
             <button
               key={imgIndex}
               type="button"
-              className={`h-2 w-2 rounded-full transition-all duration-300 ${
+              className={cn(
+                'h-2 w-2 rounded-full transition-all duration-300',
                 imgIndex === currentImageIndex ? 'w-6 bg-white' : 'bg-white/50 hover:bg-white/75'
-              }`}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setCurrentImageIndex(imgIndex);
-              }}
+              )}
+              onClick={(e) => handleIndicatorClick(e, imgIndex)}
               aria-label={`Показать фото ${imgIndex + 1}`}
             />
           ))}
