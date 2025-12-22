@@ -1,53 +1,37 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
-import { ChevronRight } from 'lucide-react';
+import { useHorizontalScroll } from '@shared/lib/hooks';
+import { ScrollDots } from '@shared/ui/scroll-dots';
+import { ScrollHintButton } from '@shared/ui/scroll-hint-button';
 import { useGallerySection } from './use-gallery-section';
 import { Modal } from '@shared/ui/modal';
 import styles from './gallery-section.module.css';
 
-interface GallerySectionProps {
-  className?: string;
-}
+interface GallerySectionProps {}
 
 /**
  * Gallery Section Widget
  * Displays general views gallery with lightbox
  * Mobile-first responsive design
  */
-export function GallerySection({ className }: GallerySectionProps) {
+export function GallerySection({}: GallerySectionProps) {
   const { images } = useGallerySection();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const scrollWrapperRef = useRef<HTMLDivElement>(null);
-  const [showRightGradient, setShowRightGradient] = useState(true);
 
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const checkScroll = () => {
-      const { scrollLeft, scrollWidth, clientWidth } = container;
-      const isAtStart = scrollLeft === 0;
-      const isAtEnd = scrollLeft + clientWidth >= scrollWidth - 10;
-
-      if (scrollWrapperRef.current) {
-        scrollWrapperRef.current.classList.toggle('scrolledStart', isAtStart);
-        scrollWrapperRef.current.classList.toggle('scrolledEnd', isAtEnd);
-      }
-      setShowRightGradient(!isAtEnd);
-    };
-
-    checkScroll();
-    container.addEventListener('scroll', checkScroll);
-    window.addEventListener('resize', checkScroll);
-
-    return () => {
-      container.removeEventListener('scroll', checkScroll);
-      window.removeEventListener('resize', checkScroll);
-    };
-  }, []);
+  const {
+    scrollContainerRef,
+    scrollWrapperRef,
+    showRightGradient,
+    currentScrollIndex,
+    scrollRight,
+    scrollToIndex,
+  } = useHorizontalScroll({
+    itemSelector: '[data-gallery-image]',
+    gap: 16,
+    itemCount: images?.length,
+  });
 
   if (!images || images.length === 0) {
     return null;
@@ -66,6 +50,7 @@ export function GallerySection({ className }: GallerySectionProps) {
                   <button
                     key={index}
                     className={styles.imageWrapper}
+                    data-gallery-image
                     onClick={() => setSelectedImage(image.src)}
                     aria-label={`Открыть изображение ${index + 1}`}
                   >
@@ -74,7 +59,7 @@ export function GallerySection({ className }: GallerySectionProps) {
                       alt={image.alt}
                       fill
                       className={styles.image}
-                      sizes="(max-width: 640px) 280px, (max-width: 768px) 320px, (max-width: 1024px) 380px, 420px"
+                      sizes="(max-width: 640px) 320px, (max-width: 768px) 360px, (max-width: 1024px) 380px, 400px"
                       loading={index < 4 ? 'eager' : 'lazy'}
                     />
                     <div className={styles.imageOverlay}>
@@ -84,10 +69,13 @@ export function GallerySection({ className }: GallerySectionProps) {
                 ))}
               </div>
             </div>
-            {showRightGradient && (
-              <div className={styles.scrollHint}>
-                <ChevronRight className={styles.scrollHintIcon} />
-              </div>
+            {showRightGradient && <ScrollHintButton onClick={scrollRight} />}
+            {images && images.length > 0 && (
+              <ScrollDots
+                count={images.length}
+                currentIndex={currentScrollIndex}
+                onDotClick={scrollToIndex}
+              />
             )}
           </div>
         </div>

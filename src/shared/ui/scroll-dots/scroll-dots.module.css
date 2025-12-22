@@ -1,0 +1,37 @@
+.scrollDots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding: var(--space-2) 0;
+}
+
+.scrollDot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: var(--color-border);
+  cursor: pointer;
+  transition:
+    background var(--transition-base),
+    width var(--transition-base),
+    transform var(--transition-base);
+  padding: 0;
+}
+
+.scrollDot:hover {
+  background: var(--color-primary);
+  transform: scale(1.2);
+}
+
+.scrollDotActive {
+  width: 24px;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+}
+
+.scrollDotActive:hover {
+  transform: scale(1);
+}

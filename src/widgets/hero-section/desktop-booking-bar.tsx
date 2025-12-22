@@ -25,7 +25,7 @@ export function DesktopBookingBar() {
     <div
       className={cn(
         styles.heroBookingEnter,
-        'sticky top-14 left-0 right-0 z-40 hidden border-t border-border bg-white shadow-lg md:block md:top-[104px] lg:top-[128px]'
+        'sticky left-0 right-0 top-14 z-40 hidden border-t border-border bg-white shadow-lg md:top-[104px] md:block lg:top-[128px]'
       )}
     >
       <div className="mx-auto max-w-7xl px-4 py-4 lg:px-8">

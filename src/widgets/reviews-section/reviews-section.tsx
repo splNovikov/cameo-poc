@@ -5,6 +5,9 @@ import { Star, ExternalLink } from 'lucide-react';
 import { type Review, type RatingStats } from '@entities/review';
 import { yandexClient } from '@shared/lib/api';
 import { formatRelativeTime } from '@shared/lib/utils/format';
+import { useHorizontalScroll } from '@shared/lib/hooks';
+import { ScrollDots } from '@shared/ui/scroll-dots';
+import { ScrollHintButton } from '@shared/ui/scroll-hint-button';
 import { useReviewsSection } from './use-reviews-section';
 import { Card, CardContent } from '@shared/ui/card';
 import styles from './reviews-section.module.css';
@@ -12,7 +15,6 @@ import styles from './reviews-section.module.css';
 interface ReviewsSectionProps {
   orgId?: string;
   limit?: number;
-  className?: string;
 }
 
 /**
@@ -20,7 +22,7 @@ interface ReviewsSectionProps {
  * Enhanced reviews block with custom styling and multiple sources support
  * Mobile-first responsive design
  */
-export function ReviewsSection({ orgId, limit = 6, className }: ReviewsSectionProps) {
+export function ReviewsSection({ orgId, limit = 12 }: ReviewsSectionProps) {
   const { defaultOrgId, reviewsConfig } = useReviewsSection({ orgId, limit });
 
   const { data: reviews, isLoading: reviewsLoading } = useQuery<Review[]>({
@@ -61,6 +63,19 @@ export function ReviewsSection({ orgId, limit = 6, className }: ReviewsSectionPr
 
   const isLoading = reviewsLoading || ratingLoading;
 
+  const {
+    scrollContainerRef,
+    scrollWrapperRef,
+    showRightGradient,
+    currentScrollIndex,
+    scrollRight,
+    scrollToIndex,
+  } = useHorizontalScroll({
+    itemSelector: '[data-review-card]',
+    gap: 16,
+    itemCount: reviews?.length,
+  });
+
   return (
     <section className={styles.section} id="reviews">
       <div className={styles.container}>
@@ -97,44 +112,56 @@ export function ReviewsSection({ orgId, limit = 6, className }: ReviewsSectionPr
         ) : !reviews || reviews.length === 0 ? (
           <div className={styles.empty}>Отзывов пока нет</div>
         ) : (
-          <div className={styles.reviewsGrid}>
-            {reviews.map((review) => (
-              <Card key={review.id} className={styles.reviewCard}>
-                <CardContent className={styles.reviewContent}>
-                  <div className={styles.reviewHeader}>
-                    <div className={styles.reviewAuthor}>
-                      <div className={styles.authorAvatar}>
-                        {review.author.charAt(0).toUpperCase()}
-                      </div>
-                      <div className={styles.authorInfo}>
-                        <div className={styles.authorName}>{review.author}</div>
-                        {review.source && (
-                          <div className={styles.reviewSource}>
-                            {review.source === 'yandex' && 'Яндекс'}
-                            {review.source === 'google' && 'Google'}
-                            {review.source === 'internal' && 'Сайт'}
+          <div className={styles.scrollWrapper} ref={scrollWrapperRef}>
+            <div className={styles.scrollContainer} ref={scrollContainerRef}>
+              <div className={styles.reviewsGrid}>
+                {reviews.map((review) => (
+                  <Card key={review.id} className={styles.reviewCard} data-review-card>
+                    <CardContent className={styles.reviewContent}>
+                      <div className={styles.reviewHeader}>
+                        <div className={styles.reviewAuthor}>
+                          <div className={styles.authorAvatar}>
+                            {review.author.charAt(0).toUpperCase()}
                           </div>
-                        )}
+                          <div className={styles.authorInfo}>
+                            <div className={styles.authorName}>{review.author}</div>
+                            {review.source && (
+                              <div className={styles.reviewSource}>
+                                {review.source === 'yandex' && 'Яндекс'}
+                                {review.source === 'google' && 'Google'}
+                                {review.source === 'internal' && 'Сайт'}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div className={styles.reviewRating}>
+                          {Array.from({ length: 5 }).map((_, i) => (
+                            <Star
+                              key={i}
+                              className={`${styles.star} ${
+                                i < review.rating ? styles.starFilled : styles.starEmpty
+                              }`}
+                            />
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                    <div className={styles.reviewRating}>
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`${styles.star} ${
-                            i < review.rating ? styles.starFilled : styles.starEmpty
-                          }`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                  <p className={styles.reviewText}>{review.text}</p>
-                  <div className={styles.reviewFooter}>
-                    <span className={styles.reviewDate}>{formatRelativeTime(review.date)}</span>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                      <p className={styles.reviewText}>{review.text}</p>
+                      <div className={styles.reviewFooter}>
+                        <span className={styles.reviewDate}>{formatRelativeTime(review.date)}</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+            {showRightGradient && <ScrollHintButton onClick={scrollRight} />}
+            {reviews && reviews.length > 0 && (
+              <ScrollDots
+                count={reviews.length}
+                currentIndex={currentScrollIndex}
+                onDotClick={scrollToIndex}
+              />
+            )}
           </div>
         )}
       </div>

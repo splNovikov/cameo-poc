@@ -1,0 +1,71 @@
+.scrollHint {
+  position: absolute;
+  right: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-lg);
+  border: none;
+  cursor: pointer;
+  transition:
+    background var(--transition-base),
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.scrollHint:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: var(--shadow-xl);
+}
+
+.scrollHint:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+@media (min-width: 768px) {
+  .scrollHint {
+    right: var(--space-6);
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .scrollHint {
+    right: var(--space-8);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+  }
+}
+
+.scrollHintIcon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary);
+}
+
+@media (min-width: 768px) {
+  .scrollHintIcon {
+    width: 28px;
+    height: 28px;
+  }
+}
