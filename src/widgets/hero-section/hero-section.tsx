@@ -34,10 +34,10 @@ export function HeroSection({ properties = [] }: HeroSectionProps) {
             />
           ))}
         </div>
-
-        {/* Desktop Booking Bar - Bottom of hero section */}
-        <DesktopBookingBar />
       </section>
+
+      {/* Desktop Booking Bar - Positioned at bottom of hero, then sticky */}
+      <DesktopBookingBar />
 
       {/* Mobile Sticky Booking Form */}
       <MobileBookingSticky />
