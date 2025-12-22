@@ -19,7 +19,7 @@ export function HeroSection({ properties = [] }: HeroSectionProps) {
 
   return (
     <>
-      <section className="relative min-h-[700px] overflow-hidden pb-20 md:min-h-[700px] md:pb-24">
+      <section className="relative min-h-[500px] overflow-hidden md:min-h-[550px]">
         {/* Split-screen hero with both property types */}
         <div className="absolute inset-0 flex flex-col md:flex-row">
           {propertyTypes.map((propertyType, index) => (
