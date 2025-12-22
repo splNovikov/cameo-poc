@@ -147,7 +147,7 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
                   styles.heroTitleElegant,
                   styles.heroContentEnterDelay1,
                   styles.heroTextShadowDeep,
-                  'mb-4 text-white transition-all duration-500 md:mb-5 text-2xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl',
+                  'mb-4 text-white transition-all duration-500 md:mb-5 text-2xl md:text-2xl lg:text-3xl xl:text-3xl 2xl:text-4xl',
                   isHovered && 'scale-105'
                 )}
               >
@@ -159,7 +159,7 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
                     styles.heroDescription,
                     styles.heroDescriptionRefined,
                     styles.heroContentEnterDelay1,
-                    'mb-6 line-clamp-3 transition-opacity duration-500 md:mb-8 md:line-clamp-4 text-white text-sm md:text-sm lg:text-base xl:text-lg',
+                    'mb-6 line-clamp-3 transition-opacity duration-500 md:mb-8 md:line-clamp-4 text-white text-sm md:text-sm lg:text-base xl:text-base',
                     isHovered ? 'opacity-95 text-white' : 'opacity-80 text-white/90'
                   )}
                 >

@@ -13,6 +13,19 @@
   margin: 0;
 }
 
+/* Limit desktop title size */
+@media (min-width: 1280px) {
+  .heroTitle {
+    font-size: 3rem; /* 48px instead of 72px */
+  }
+}
+
+@media (min-width: 1536px) {
+  .heroTitle {
+    font-size: 3.5rem; /* 56px for very large screens */
+  }
+}
+
 .heroSubtitle {
   font-family: var(--font-hero-body);
   font-weight: var(--font-weight-normal);
