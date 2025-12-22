@@ -1,0 +1,20 @@
+/* Yandex Maps Container */
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.mapElement {
+  height: 100%;
+  width: 100%;
+  border-radius: var(--radius-lg);
+}
+
+.mapElementDefault {
+  min-height: 500px;
+}
+
+/* Global styles for Yandex Maps (injected via style tag) */
+/* These styles target Yandex Maps internal classes */
+
+

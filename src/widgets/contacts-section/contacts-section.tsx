@@ -17,7 +17,7 @@ interface ContactsSectionProps {
  * Displays contact information and map
  * Mobile-first responsive design
  */
-export function ContactsSection({ className }: ContactsSectionProps) {
+export function ContactsSection({ className }: ContactsSectionProps = {}) {
   const { properties, contactInfo } = useContactsSection();
 
   return (
@@ -131,6 +131,7 @@ export function ContactsSection({ className }: ContactsSectionProps) {
               properties={properties}
               center={contactInfo.addresses.hotel[0]?.coordinates}
               zoom={13}
+              className="h-full"
             />
           </div>
         </div>

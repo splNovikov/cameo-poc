@@ -53,27 +53,35 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
+  align-items: stretch;
 }
 
 @media (min-width: 1024px) {
   .content {
     flex-direction: row;
     gap: var(--space-8);
+    align-items: stretch;
   }
 }
 
 .infoGrid {
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .contactCard {
-  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .contactContent {
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
+  flex: 1;
+  min-height: 0; /* Allow flex item to shrink below content size */
 }
 
 .contactItem {
@@ -177,11 +185,7 @@
 
 .mapWrapper {
   flex: 1;
-  min-height: 400px;
-}
-
-@media (min-width: 1024px) {
-  .mapWrapper {
-    min-height: 500px;
-  }
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Allow flex item to shrink below content size */
 }
