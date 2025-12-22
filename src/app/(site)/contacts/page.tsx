@@ -13,7 +13,7 @@ const mockProperties: Property[] = [
   {
     id: '1',
     slug: 'cameo-hotel',
-    name: 'Cameo Hotel',
+    name: 'Отель Камея',
     type: 'hotel',
     description: '',
     address: siteConfig.contact.address,

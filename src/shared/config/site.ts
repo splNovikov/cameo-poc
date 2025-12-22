@@ -3,8 +3,8 @@
  */
 
 export const siteConfig = {
-  name: 'Cameo Hotel',
-  description: 'Отель Cameo - комфортабельные номера в центре города',
+  name: 'Отель Камея',
+  description: 'Отель Камея - комфортабельные номера в центре города',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
   contact: {
     email: process.env.CONTACT_EMAIL || 'contact@cameohotel.ru',

@@ -8,11 +8,11 @@ export default function AboutPage() {
       <div className="space-y-6">
         <Card>
           <CardHeader>
-            <CardTitle>О Cameo Hotel</CardTitle>
+            <CardTitle>О Отеле Камея</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="mb-4 text-text-light">
-              Cameo Hotel — это современный отель, расположенный в самом сердце города. Мы
+              Отель Камея — это современный отель, расположенный в самом сердце города. Мы
               предлагаем комфортабельные номера и отличный сервис для наших гостей.
             </p>
             <p className="text-text-light">

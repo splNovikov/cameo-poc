@@ -86,10 +86,6 @@
   --color-primary-active: #1d4a1a;
   --color-primary-rgb: 36, 91, 33;
 
-  /* Eclipse gradient purple */
-  --color-eclipse-purple: #a78bfa;
-  --color-eclipse-purple-rgb: 167, 139, 250;
-
   /* Semantic Colors */
   --color-success: #34d399;
   --color-success-hover: #4ade80;
@@ -144,38 +140,6 @@
   --color-spinner-border: rgba(0, 0, 0, 0.1);
   --color-spinner-border-top: var(--color-primary);
   --color-spinner-tip: var(--color-text-tertiary);
-
-  /* ============================================
-     ECLIPSE EFFECT (for custom components)
-     ============================================ */
-  --color-eclipse-gradient: linear-gradient(
-    135deg,
-    var(--color-primary) 0%,
-    var(--color-eclipse-purple) 100%
-  );
-  --color-eclipse-shadow: rgba(var(--color-primary-rgb), 0.4);
-  --color-eclipse-shadow-hover: rgba(var(--color-primary-rgb), 0.6);
-
-  /* Pulsing border colors */
-  --color-pulse-primary: rgba(var(--color-primary-rgb), 0.3);
-  --color-pulse-primary-strong: rgba(var(--color-primary-rgb), 1);
-  --color-pulse-primary-shadow: rgba(var(--color-primary-rgb), 0.5);
-  --color-pulse-error: rgba(var(--color-error-rgb), 0.3);
-  --color-pulse-error-strong: rgba(var(--color-error-rgb), 1);
-  --color-pulse-error-shadow: rgba(var(--color-error-rgb), 0.5);
-
-  /* Mouse position for cursor-following effects (set dynamically via inline styles) */
-  --mouse-x: 50%;
-  --mouse-y: 50%;
-
-  /* Ripple effect coordinates (set dynamically via JS on touch/click) */
-  --ripple-x: 50%;
-  --ripple-y: 50%;
-
-  /* Ripple effect animation timing - smooth and gentle */
-  --ripple-duration: 0.8s;
-  --ripple-opacity-duration: 0.6s;
-  --ripple-timing: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* ease-out-quad - smoother */
 
   /* ============================================
      TRANSITIONS

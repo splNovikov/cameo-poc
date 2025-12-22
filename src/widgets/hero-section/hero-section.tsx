@@ -1,62 +1,37 @@
 'use client';
 
-import Image from 'next/image';
-import { BookingWidget } from '@features/booking-widget';
-import { PropertySelector } from '@features/property-selector';
 import { type Property } from '@entities/property';
+import { useHeroSection } from './use-hero-section';
+import { PropertyHeroCard } from './property-hero-card';
+import { HeroContentOverlay } from './hero-content-overlay';
 
 interface HeroSectionProps {
-  backgroundImage?: string;
-  title?: string;
-  subtitle?: string;
   properties?: Property[];
 }
 
-export function HeroSection({
-  backgroundImage = '/images/hero/default.jpg',
-  title = 'Cameo Hotel',
-  subtitle = 'Комфортабельные номера в центре города',
-  properties,
-}: HeroSectionProps) {
+export function HeroSection({ properties = [] }: HeroSectionProps) {
+  const { propertyTypes, hoveredType, setHoveredType } = useHeroSection({
+    properties,
+  });
+
   return (
-    <section className="relative min-h-[600px]">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        {backgroundImage && (
-          <Image
-            src={backgroundImage}
-            alt="Cameo Hotel"
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
+    <section className="relative min-h-[600px] overflow-hidden">
+      {/* Split-screen hero with both property types */}
+      <div className="absolute inset-0 flex">
+        {propertyTypes.map((propertyType, index) => (
+          <PropertyHeroCard
+            key={propertyType.type}
+            propertyType={propertyType}
+            index={index}
+            isHovered={hoveredType === propertyType.type}
+            onMouseEnter={() => setHoveredType(propertyType.type)}
+            onMouseLeave={() => setHoveredType(null)}
           />
-        )}
-        <div className="absolute inset-0 bg-black/50" />
+        ))}
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 mx-auto max-w-7xl px-4 py-16">
-        <div className="grid gap-8 lg:grid-cols-2">
-          {/* Left: Title and Description */}
-          <div className="flex flex-col justify-center text-white">
-            <h1 className="mb-4 text-4xl font-bold md:text-5xl lg:text-6xl">{title}</h1>
-            <p className="mb-8 text-xl md:text-2xl">{subtitle}</p>
-            {properties && properties.length > 0 && (
-              <div className="mt-4">
-                <PropertySelector properties={properties} />
-              </div>
-            )}
-          </div>
-
-          {/* Right: Booking Widget */}
-          <div className="flex items-center justify-center">
-            <div className="w-full max-w-md">
-              <BookingWidget />
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Content Overlay - Booking Widget */}
+      <HeroContentOverlay />
     </section>
   );
 }

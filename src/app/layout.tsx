@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  keywords: ['отель', 'бронирование', 'Cameo Hotel', 'номера'],
+  keywords: ['отель', 'бронирование', 'Отель Камея', 'номера'],
   authors: [{ name: siteConfig.name }],
   openGraph: {
     type: 'website',
