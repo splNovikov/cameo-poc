@@ -124,7 +124,7 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
           isLeft
             ? 'items-start justify-center text-left md:justify-center md:pb-32'
             : 'items-end justify-center text-right md:justify-center md:pb-32'
-        } ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-90'}`}
+        } ${isHovered ? 'translate-y-0' : 'translate-y-4'} opacity-90`}
       >
         <div className={cn('max-w-md md:max-w-lg lg:max-w-xl', isLeft ? 'md:ml-8 lg:ml-12' : 'md:mr-8 lg:mr-12')}>
           <div
@@ -173,7 +173,7 @@ export const PropertyHeroCard = memo(function PropertyHeroCard({
                   'inline-flex items-center gap-3 rounded-full border-2 px-5 py-2.5 text-xs font-semibold tracking-wide transition-all duration-300 group-hover:scale-105 group-hover:bg-white/20 group-hover:shadow-xl md:px-8 md:py-3 md:text-sm',
                   isHovered
                     ? 'border-white bg-white/15 text-white shadow-2xl backdrop-blur-sm'
-                    : 'border-white/60 bg-white/8 text-white/90 backdrop-blur-sm',
+                    : 'border-white bg-white/10 text-white backdrop-blur-sm',
                   isHovered && styles.heroButtonPulse
                 )}
               >

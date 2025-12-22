@@ -215,6 +215,12 @@
   opacity: 0;
 }
 
+/* Ensure button keeps animation but stays visible after it completes */
+.heroButton.heroContentEnterDelay2 {
+  animation: heroFadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
+  /* Animation will set opacity to 1 at the end due to 'forwards' */
+}
+
 /* Hero Image Parallax Effect */
 .heroImageParallax {
   transition: transform 0.3s ease-out;
