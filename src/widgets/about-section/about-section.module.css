@@ -45,13 +45,13 @@
 
 @media (min-width: 768px) {
   .title {
-    font-size: var(--font-size-4xl);
+    font-size: var(--font-size-2xl);
   }
 }
 
 @media (min-width: 1024px) {
   .title {
-    font-size: var(--font-size-5xl);
+    font-size: var(--font-size-2xl);
   }
 }
 
