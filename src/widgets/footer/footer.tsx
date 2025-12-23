@@ -25,7 +25,7 @@ export function Footer() {
             <div className="mb-3 md:mb-4 lg:mb-6">
               <Logo linkToHome={true} height="h-8" showText={false} />
             </div>
-            <p className="mb-3 text-xs text-text-light md:mb-4 lg:mb-6 lg:text-sm">{description}</p>
+            <p className="mb-3 text-sm text-text-light md:mb-4 lg:mb-6 lg:text-base">{description}</p>
             <div className="flex items-center gap-2 md:gap-3">
               <SocialLink
                 href={social.instagram}
@@ -44,11 +44,11 @@ export function Footer() {
 
           {/* Contacts Section */}
           <div>
-            <h3 className="mb-3 text-xs font-semibold md:mb-4 md:text-sm lg:mb-6 lg:text-base">
+            <h3 className="mb-3 text-sm font-semibold md:mb-4 md:text-base lg:mb-6 lg:text-lg">
               Контакты
             </h3>
             <div className="space-y-2 md:space-y-3">
-              <div className="text-xs text-text-light lg:text-sm">
+              <div className="text-sm text-text-light lg:text-base">
                 <p className="mb-1 font-medium">Отель:</p>
                 <a
                   href={contact.addresses.hotel[0].mapUrl}
@@ -59,7 +59,7 @@ export function Footer() {
                   {contact.addresses.hotel[0].address}
                 </a>
               </div>
-              <div className="text-xs text-text-light lg:text-sm">
+              <div className="text-sm text-text-light lg:text-base">
                 <p className="mb-1 font-medium">Апартаменты:</p>
                 {contact.addresses.apartments.map((location) => (
                   <a
@@ -73,7 +73,7 @@ export function Footer() {
                   </a>
                 ))}
               </div>
-              <div className="text-xs text-text-light lg:text-sm">
+              <div className="text-sm text-text-light lg:text-base">
                 <p className="mb-1 font-medium">Телефоны:</p>
                 {contact.phones.map((phone) => (
                   <a
@@ -87,7 +87,7 @@ export function Footer() {
               </div>
               <a
                 href={`mailto:${contact.email}`}
-                className="block text-xs text-text-light transition-colors hover:text-primary lg:text-sm"
+                className="block text-sm text-text-light transition-colors hover:text-primary lg:text-base"
               >
                 {contact.email}
               </a>
@@ -96,10 +96,10 @@ export function Footer() {
 
           {/* Navigation Section */}
           <div>
-            <h3 className="mb-3 text-xs font-semibold md:mb-4 md:text-sm lg:mb-6 lg:text-base">
+            <h3 className="mb-3 text-sm font-semibold md:mb-4 md:text-base lg:mb-6 lg:text-lg">
               Навигация
             </h3>
-            <div className="flex flex-col gap-2 text-xs md:gap-3 lg:text-sm">
+            <div className="flex flex-col gap-2 text-sm md:gap-3 lg:text-base">
               {NAVIGATION_ITEMS.map((item) => (
                 <Link
                   key={item.href}
@@ -114,7 +114,7 @@ export function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-6 border-t border-border pt-6 text-center text-xs text-text-light md:mt-8 md:pt-8 lg:mt-12 lg:pt-12 lg:text-sm xl:mt-16">
+        <div className="mt-6 border-t border-border pt-6 text-center text-sm text-text-light md:mt-8 md:pt-8 lg:mt-12 lg:pt-12 lg:text-base xl:mt-16">
           © {copyrightYear} {siteName}. Все права защищены.
         </div>
       </div>
