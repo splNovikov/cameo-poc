@@ -1,0 +1,196 @@
+/**
+ * Mobile Navigation Styles
+ * Enhanced with primary colors and smooth effects
+ */
+
+.hamburgerButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.5rem;
+  color: var(--color-text-primary);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+.hamburgerButton:hover {
+  color: var(--color-primary);
+  background: rgba(var(--color-primary-rgb), 0.1);
+  transform: scale(1.05);
+}
+
+.hamburgerButton:active {
+  transform: scale(0.95);
+}
+
+.hamburgerButton:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.menuPanel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 50;
+  height: 100%;
+  width: 18rem;
+  max-width: 85vw;
+  background: var(--color-bg-body);
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+  transition: transform var(--transition-slow) var(--transition-timing);
+  will-change: transform;
+}
+
+.menuPanelOpen {
+  transform: translateX(0);
+}
+
+.menuPanelClosed {
+  transform: translateX(100%);
+}
+
+.menuHeader {
+  display: flex;
+  height: 3.5rem;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 1rem;
+  border-bottom: 2px solid var(--color-primary);
+  background: linear-gradient(
+    135deg,
+    rgba(var(--color-primary-rgb), 0.05) 0%,
+    rgba(var(--color-primary-rgb), 0.02) 100%
+  );
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0.5rem;
+  color: var(--color-text-primary);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  color: var(--color-primary);
+  background: rgba(var(--color-primary-rgb), 0.1);
+  transform: rotate(90deg);
+}
+
+.closeButton:active {
+  transform: rotate(90deg) scale(0.9);
+}
+
+.menuList {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  gap: 0.25rem;
+}
+
+.menuItem {
+  position: relative;
+  display: block;
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  overflow: hidden;
+}
+
+.menuItem::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--color-primary);
+  transform: scaleY(0);
+  transition: transform var(--transition-base) var(--transition-timing);
+}
+
+.menuItem:hover {
+  color: var(--color-primary);
+  background: rgba(var(--color-primary-rgb), 0.08);
+  padding-left: 1.25rem;
+  transform: translateX(4px);
+}
+
+.menuItem:hover::before {
+  transform: scaleY(1);
+}
+
+.menuItem:active {
+  background: rgba(var(--color-primary-rgb), 0.15);
+  transform: translateX(2px);
+}
+
+.menuItem:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Backdrop with blur effect */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  transition: opacity var(--transition-slow) var(--transition-timing);
+  will-change: opacity;
+}
+
+.backdropOpen {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.backdropClosed {
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* Icon transitions */
+.icon {
+  position: absolute;
+  width: 1.5rem;
+  height: 1.5rem;
+  transition:
+    opacity var(--transition-base),
+    transform var(--transition-base);
+}
+
+.iconMenu {
+  transform: rotate(0deg);
+}
+
+.iconClose {
+  transform: rotate(0deg);
+}
+
+.hamburgerButton:hover .iconMenu {
+  transform: rotate(90deg);
+}
+
+.hamburgerButton:hover .iconClose {
+  transform: rotate(180deg);
+}

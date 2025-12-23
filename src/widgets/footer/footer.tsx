@@ -13,6 +13,12 @@ import { useFooter } from './use-footer';
  * Site footer with contact info, navigation, and social links
  * Follows FSD architecture - complex UI component in widgets layer
  */
+
+// Extracted className constants for maintainability
+const LINK_HOVER_CLASSES = 'transition-colors hover:text-primary';
+const CONTACT_TEXT_CLASSES = 'text-sm text-text-light lg:text-base';
+const CONTACT_LINK_CLASSES = `block ${LINK_HOVER_CLASSES}`;
+
 export function Footer() {
   const { copyrightYear, siteName, description, contact, social } = useFooter();
 
@@ -25,7 +31,9 @@ export function Footer() {
             <div className="mb-3 md:mb-4 lg:mb-6">
               <Logo linkToHome={true} height="h-8" showText={false} />
             </div>
-            <p className="mb-3 text-sm text-text-light md:mb-4 lg:mb-6 lg:text-base">{description}</p>
+            <p className="mb-3 text-sm text-text-light md:mb-4 lg:mb-6 lg:text-base">
+              {description}
+            </p>
             <div className="flex items-center gap-2 md:gap-3">
               <SocialLink
                 href={social.instagram}
@@ -48,18 +56,18 @@ export function Footer() {
               Контакты
             </h3>
             <div className="space-y-2 md:space-y-3">
-              <div className="text-sm text-text-light lg:text-base">
+              <div className={CONTACT_TEXT_CLASSES}>
                 <p className="mb-1 font-medium">Отель:</p>
                 <a
                   href={contact.addresses.hotel[0].mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-colors hover:text-primary"
+                  className={LINK_HOVER_CLASSES}
                 >
                   {contact.addresses.hotel[0].address}
                 </a>
               </div>
-              <div className="text-sm text-text-light lg:text-base">
+              <div className={CONTACT_TEXT_CLASSES}>
                 <p className="mb-1 font-medium">Апартаменты:</p>
                 {contact.addresses.apartments.map((location) => (
                   <a
@@ -67,19 +75,19 @@ export function Footer() {
                     href={location.mapUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block transition-colors hover:text-primary"
+                    className={CONTACT_LINK_CLASSES}
                   >
                     {location.address}
                   </a>
                 ))}
               </div>
-              <div className="text-sm text-text-light lg:text-base">
+              <div className={CONTACT_TEXT_CLASSES}>
                 <p className="mb-1 font-medium">Телефоны:</p>
                 {contact.phones.map((phone) => (
                   <a
                     key={phone}
                     href={`tel:${formatPhoneForTel(phone)}`}
-                    className="block transition-colors hover:text-primary"
+                    className={CONTACT_LINK_CLASSES}
                   >
                     {phone}
                   </a>
@@ -87,7 +95,7 @@ export function Footer() {
               </div>
               <a
                 href={`mailto:${contact.email}`}
-                className="block text-sm text-text-light transition-colors hover:text-primary lg:text-base"
+                className={`${CONTACT_LINK_CLASSES} ${CONTACT_TEXT_CLASSES}`}
               >
                 {contact.email}
               </a>
@@ -104,7 +112,7 @@ export function Footer() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-text-light transition-colors hover:text-primary"
+                  className={`text-text-light ${LINK_HOVER_CLASSES}`}
                 >
                   {item.label}
                 </Link>
