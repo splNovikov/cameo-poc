@@ -77,10 +77,13 @@ export function ReviewsSection({ orgId, limit = 12 }: ReviewsSectionProps) {
   });
 
   return (
-    <section className={styles.section} id="reviews">
+    <section className={`${styles.section} sectionBand`} id="reviews">
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Отзывы наших гостей</h2>
+          <div className="sectionHeader">
+            <div className="sectionLabel">Впечатления гостей</div>
+            <h2 className={`sectionTitle ${styles.title}`}>Отзывы наших гостей</h2>
+          </div>
           {ratingStats && (
             <div className={styles.ratingSummary}>
               <div className={styles.ratingValue}>

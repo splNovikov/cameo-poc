@@ -49,19 +49,33 @@
 }
 
 .card {
-  background-color: var(--color-bg-body);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.88));
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow:
+    0 20px 45px rgba(15, 23, 42, 0.18),
+    0 0 0 1px rgba(148, 163, 184, 0.12);
   transition:
     transform var(--transition-base),
-    box-shadow var(--transition-base);
+    box-shadow var(--transition-base),
+    border-color var(--transition-base),
+    background var(--transition-base);
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .card {
+    backdrop-filter: blur(14px) saturate(120%);
+  }
 }
 
 @media (min-width: 768px) {
   .card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-6px);
+    box-shadow:
+      0 32px 60px rgba(15, 23, 42, 0.24),
+      0 0 0 1px rgba(36, 91, 33, 0.25);
+    border-color: rgba(36, 91, 33, 0.35);
   }
 }
 

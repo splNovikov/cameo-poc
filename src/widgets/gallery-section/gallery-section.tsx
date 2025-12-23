@@ -39,9 +39,12 @@ export function GallerySection({}: GallerySectionProps) {
 
   return (
     <>
-      <section className={styles.section} id="gallery">
+      <section className={`${styles.section} sectionBand`} id="gallery">
         <div className={styles.container}>
-          <h2 className={styles.title}>Галерея</h2>
+          <div className="sectionHeader">
+            <div className="sectionLabel">Фотогалерея</div>
+            <h2 className={`sectionTitle ${styles.title}`}>Галерея</h2>
+          </div>
           <p className={styles.subtitle}>Общие виды наших объектов</p>
           <div className={styles.scrollWrapper} ref={scrollWrapperRef}>
             <div className={styles.scrollContainer} ref={scrollContainerRef}>

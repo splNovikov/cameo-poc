@@ -215,6 +215,27 @@
   --color-bg-secondary: var(--color-bg-surface);
 }
 
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-bg text-text antialiased;
+    /* Subtle, warm-neutral background gradient for premium feel */
+    background-image:
+      radial-gradient(circle at top left, #f6f3ea 0, transparent 55%),
+      radial-gradient(circle at bottom right, #eef2ff 0, transparent 55%);
+    background-attachment: fixed;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
 /* Smooth transitions for color changes */
 * {
   transition-property: background-color, border-color, color;
@@ -232,18 +253,52 @@ textarea {
   transition-duration: var(--transition-fast);
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-bg text-text antialiased;
-  }
+/* Section banding helper with soft top separator line */
+.sectionBand {
+  position: relative;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.sectionBand::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(148, 163, 184, 0.45), transparent);
+}
+
+/* Unified section header styles */
+.sectionHeader {
+  max-width: 1200px;
+  margin: 0 auto var(--space-6);
+  text-align: left;
+}
+
+.sectionLabel {
+  font-family: var(--font-hero-body);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(15, 23, 42, 0.52);
+  margin-bottom: var(--space-2);
+}
+
+.sectionTitle {
+  font-family: var(--font-hero-title);
+  font-weight: 600;
+  font-size: var(--font-size-3xl);
+  letter-spacing: 0.03em;
+  color: var(--color-text-primary);
+  position: relative;
+  padding-bottom: var(--space-3);
+}
+
+.sectionTitle::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 64px;
+  height: 2px;
+  background: linear-gradient(to right, rgba(36, 91, 33, 0.9), rgba(36, 91, 33, 0));
 }

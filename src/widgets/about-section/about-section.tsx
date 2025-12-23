@@ -17,10 +17,13 @@ export function AboutSection({ className: _className }: AboutSectionProps) {
   const { content } = useAboutSection();
 
   return (
-    <section className={styles.section} id="about">
+    <section className={`${styles.section} sectionBand`} id="about">
       <div className={styles.container}>
         <div className={styles.content}>
-          <h2 className={styles.title}>{content.title}</h2>
+          <div className="sectionHeader">
+            <div className="sectionLabel">О нас</div>
+            <h2 className={`sectionTitle ${styles.title}`}>{content.title}</h2>
+          </div>
           <div className={styles.text}>
             {content.paragraphs.map((paragraph, index) => (
               <p key={index} className={styles.paragraph}>

@@ -31,10 +31,13 @@ export function AdvantagesSection({ className: _className }: AdvantagesSectionPr
   const { advantages } = useAdvantagesSection();
 
   return (
-    <section className={styles.section} id="advantages">
+    <section className={`${styles.section} sectionBand`} id="advantages">
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Наши преимущества</h2>
+          <div className="sectionHeader">
+            <div className="sectionLabel">Почему Камея</div>
+            <h2 className={`sectionTitle ${styles.title}`}>Наши преимущества</h2>
+          </div>
           <p className={styles.subtitle}>Все, что нужно для комфортного и приятного пребывания</p>
         </div>
         <div className={styles.grid}>

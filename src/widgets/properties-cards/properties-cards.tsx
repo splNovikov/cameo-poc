@@ -22,9 +22,12 @@ export function PropertiesCards({ properties, className: _className }: Propertie
   const { groupedProperties } = usePropertiesCards({ properties });
 
   return (
-    <section className={styles.section} id="properties">
+    <section className={`${styles.section} sectionBand`} id="properties">
       <div className={styles.container}>
-        <h2 className={styles.title}>Наши объекты</h2>
+        <div className="sectionHeader">
+          <div className="sectionLabel">Объекты размещения</div>
+          <h2 className={`sectionTitle ${styles.title}`}>Наши объекты</h2>
+        </div>
         <div className={styles.cardsGrid}>
           {groupedProperties.map((group) => (
             <div key={group.type} className={styles.card}>

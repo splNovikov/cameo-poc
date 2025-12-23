@@ -25,7 +25,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
  * Primary button effect classes - extracted for maintainability
  */
 const PRIMARY_BUTTON_EFFECTS =
-  'hover:shadow-primary/30 group relative overflow-hidden bg-primary font-semibold text-white shadow-md transition-all duration-300 hover:scale-[1.02] hover:bg-primary-dark hover:shadow-lg';
+  'hover:shadow-primary/25 group relative overflow-hidden bg-primary font-semibold text-white shadow-md transition-all duration-300 hover:scale-[1.01] hover:bg-primary-dark hover:shadow-xl';
 
 /**
  * Button - Unified button component for the entire application
@@ -61,9 +61,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             // Primary button with attractive effects
             [PRIMARY_BUTTON_EFFECTS]: isPrimary,
             'bg-error text-white hover:bg-red-700': variant === 'destructive',
-            'border border-border bg-transparent hover:bg-bg-secondary': variant === 'outline',
-            'bg-secondary text-white hover:bg-secondary-dark': variant === 'secondary',
-            'hover:bg-bg-secondary': variant === 'ghost',
+            // Outline: subtle glass-compatible outline
+            'hover:border-primary/40 border border-border bg-white/60 shadow-sm hover:bg-white/80 hover:shadow-md':
+              variant === 'outline',
+            // Secondary: soft filled alternative
+            'hover:bg-secondary-dark/95 bg-secondary text-white shadow-sm hover:shadow-md':
+              variant === 'secondary',
+            // Ghost: minimal, for light surfaces
+            'bg-transparent hover:bg-white/40 hover:shadow-sm': variant === 'ghost',
             'w-full': fullWidth,
           },
           className
@@ -73,10 +78,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {isPrimary && (
           <>
-            {/* Shine effect */}
-            <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-            {/* Glow effect */}
-            <span className="absolute inset-0 rounded-md bg-primary opacity-0 blur-sm transition-opacity duration-300 group-hover:opacity-50" />
+            {/* Shine effect - slightly softened */}
+            <span className="duration-800 absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform group-hover:translate-x-full" />
+            {/* Glow effect - softer and more diffuse */}
+            <span className="duration-400 absolute inset-0 rounded-md bg-primary opacity-0 blur-md transition-opacity group-hover:opacity-40" />
           </>
         )}
         {/* Text content - wrapped in span for primary buttons to ensure z-index layering */}

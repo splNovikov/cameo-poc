@@ -80,8 +80,10 @@ export function Header() {
               </Link>
             ))}
           </div>
-          {/* Mobile Navigation */}
-          <MobileNavigation />
+          {/* Mobile Navigation - render only on small screens */}
+          <div className="md:hidden">
+            <MobileNavigation />
+          </div>
         </div>
       </nav>
     </header>

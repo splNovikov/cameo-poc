@@ -151,17 +151,17 @@
 
 /* Hero Content Animations */
 .heroContentEnter {
-  animation: heroFadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+  animation: heroFadeInUp 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s forwards;
   opacity: 0;
 }
 
 .heroContentEnterDelay1 {
-  animation: heroFadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
+  animation: heroFadeInUp 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 0.35s forwards;
   opacity: 0;
 }
 
 .heroContentEnterDelay2 {
-  animation: heroFadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
+  animation: heroFadeInUp 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 0.5s forwards;
   opacity: 0;
 }
 
@@ -214,22 +214,26 @@
 
 /* Hero Gradient Overlay Enhancement */
 .heroGradientOverlay {
-  background: linear-gradient(
-    135deg,
-    rgba(0, 0, 0, 0.7) 0%,
-    rgba(0, 0, 0, 0.5) 50%,
-    rgba(0, 0, 0, 0.4) 100%
-  );
+  background:
+    radial-gradient(circle at center, rgba(0, 0, 0, 0.18) 0, transparent 55%),
+    linear-gradient(
+      135deg,
+      rgba(8, 24, 16, 0.96) 0%,
+      rgba(13, 34, 22, 0.82) 40%,
+      rgba(4, 13, 8, 0.96) 100%
+    );
   transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .heroGradientOverlay:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(0, 0, 0, 0.6) 0%,
-    rgba(0, 0, 0, 0.4) 50%,
-    rgba(0, 0, 0, 0.3) 100%
-  );
+  background:
+    radial-gradient(circle at center, rgba(0, 0, 0, 0.12) 0, transparent 55%),
+    linear-gradient(
+      135deg,
+      rgba(9, 30, 19, 0.94) 0%,
+      rgba(15, 40, 26, 0.78) 40%,
+      rgba(6, 18, 11, 0.94) 100%
+    );
 }
 
 /* Hero Text Effects */

@@ -22,10 +22,13 @@ export function ContactsSection({ className: _className }: ContactsSectionProps 
   const { properties, contactInfo } = useContactsSection();
 
   return (
-    <section className={styles.section} id="contacts">
+    <section className={`${styles.section} sectionBand`} id="contacts">
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Контакты</h2>
+          <div className="sectionHeader">
+            <div className="sectionLabel">Свяжитесь с нами</div>
+            <h2 className={`sectionTitle ${styles.title}`}>Контакты</h2>
+          </div>
           <p className={styles.subtitle}>Свяжитесь с нами любым удобным способом</p>
         </div>
 

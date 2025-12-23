@@ -24,7 +24,7 @@ export function MobileNavigation({ className }: MobileNavigationProps) {
       <button
         type="button"
         onClick={toggleMenu}
-        className={cn(styles.hamburgerButton, 'md:hidden', className)}
+        className={cn(styles.hamburgerButton, className)}
         aria-label={isOpen ? 'Закрыть меню' : 'Открыть меню'}
         aria-expanded={isOpen}
       >
@@ -36,22 +36,14 @@ export function MobileNavigation({ className }: MobileNavigationProps) {
       <>
         {/* Backdrop with blur effect */}
         <div
-          className={cn(
-            styles.backdrop,
-            'md:hidden',
-            isOpen ? styles.backdropOpen : styles.backdropClosed
-          )}
+          className={cn(styles.backdrop, isOpen ? styles.backdropOpen : styles.backdropClosed)}
           onClick={closeMenu}
           aria-hidden="true"
         />
 
         {/* Menu Panel */}
         <nav
-          className={cn(
-            styles.menuPanel,
-            'md:hidden',
-            isOpen ? styles.menuPanelOpen : styles.menuPanelClosed
-          )}
+          className={cn(styles.menuPanel, isOpen ? styles.menuPanelOpen : styles.menuPanelClosed)}
           aria-hidden={!isOpen}
           aria-label="Мобильное меню"
         >
