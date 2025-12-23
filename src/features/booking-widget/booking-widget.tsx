@@ -3,10 +3,18 @@
 import { Calendar, Users } from 'lucide-react';
 import { Button } from '@shared/ui/button';
 import { Card, CardContent } from '@shared/ui/card';
+import { cn } from '@shared/lib/utils';
 import { useBookingForm, getDefaultBookingDates } from './use-booking-form';
 import { BookingFormField } from './booking-form-field';
 
-export function BookingWidget() {
+interface BookingWidgetProps {
+  /**
+   * Optional className to customize outer card styling (e.g. glass effect in hero)
+   */
+  className?: string;
+}
+
+export function BookingWidget({ className }: BookingWidgetProps) {
   const { form, isLoading, onSubmit } = useBookingForm();
   const {
     register,
@@ -16,7 +24,7 @@ export function BookingWidget() {
   const { checkIn: minDate } = getDefaultBookingDates();
 
   return (
-    <Card className="w-full">
+    <Card className={cn('w-full', className)}>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
