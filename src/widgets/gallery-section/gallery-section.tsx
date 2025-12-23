@@ -44,7 +44,6 @@ export function GallerySection({}: GallerySectionProps) {
           <div className="sectionHeader">
             <div className="sectionLabel">Фотогалерея</div>
           </div>
-          <p className={styles.subtitle}>Общие виды наших объектов</p>
           <div className={styles.scrollWrapper} ref={scrollWrapperRef}>
             <div className={styles.scrollContainer} ref={scrollContainerRef}>
               <div className={styles.gallery}>

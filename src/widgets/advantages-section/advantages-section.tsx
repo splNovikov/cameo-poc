@@ -37,7 +37,6 @@ export function AdvantagesSection({ className: _className }: AdvantagesSectionPr
           <div className="sectionHeader">
             <div className="sectionLabel">Почему Камея</div>
           </div>
-          <p className={styles.subtitle}>Все, что нужно для комфортного и приятного пребывания</p>
         </div>
         <div className={styles.grid}>
           {advantages.map((advantage) => {

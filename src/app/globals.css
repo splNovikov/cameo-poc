@@ -276,8 +276,8 @@ textarea {
 
 .sectionLabel {
   font-family: var(--font-hero-body);
-  font-size: 10px;
-  letter-spacing: 0.22em;
+  font-size: 12px;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: rgba(15, 23, 42, 0.52);
   margin-bottom: var(--space-2);

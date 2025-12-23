@@ -28,7 +28,6 @@ export function ContactsSection({ className: _className }: ContactsSectionProps 
           <div className="sectionHeader">
             <div className="sectionLabel">Свяжитесь с нами</div>
           </div>
-          <p className={styles.subtitle}>Свяжитесь с нами любым удобным способом</p>
         </div>
 
         <div className={styles.content}>
