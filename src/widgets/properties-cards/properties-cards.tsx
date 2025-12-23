@@ -26,7 +26,6 @@ export function PropertiesCards({ properties, className: _className }: Propertie
       <div className={styles.container}>
         <div className="sectionHeader">
           <div className="sectionLabel">Объекты размещения</div>
-          <h2 className={`sectionTitle ${styles.title}`}>Наши объекты</h2>
         </div>
         <div className={styles.cardsGrid}>
           {groupedProperties.map((group) => (

@@ -82,7 +82,6 @@ export function ReviewsSection({ orgId, limit = 12 }: ReviewsSectionProps) {
         <div className={styles.header}>
           <div className="sectionHeader">
             <div className="sectionLabel">Впечатления гостей</div>
-            <h2 className={`sectionTitle ${styles.title}`}>Отзывы наших гостей</h2>
           </div>
           {ratingStats && (
             <div className={styles.ratingSummary}>
