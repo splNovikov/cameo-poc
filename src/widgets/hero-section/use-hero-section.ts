@@ -28,9 +28,7 @@ interface UseHeroSectionReturn {
 export function useHeroSection({ properties }: UseHeroSectionProps): UseHeroSectionReturn {
   const primary = useMemo<HeroPrimaryData>(() => {
     // Prefer hotel if available, otherwise first property type in config order
-    const preferredType = PROPERTY_TYPES.find((type) =>
-      properties.some((p) => p.type === type)
-    );
+    const preferredType = PROPERTY_TYPES.find((type) => properties.some((p) => p.type === type));
 
     const property =
       (preferredType && properties.find((p) => p.type === preferredType)) || properties[0] || null;
